@@ -86,7 +86,7 @@ for (const id of ["28:2051", "28:2405", "28:2625", "28:2146", "28:2269", "28:334
  };
  new ResizeObserver(draw).observe(paper);draw();
 }
-// One pinned story, three stages controlled by the page's native scroll.
+// Three process stages as tabs; the page scrolls normally past the block.
 {
  const sections=[3,4,5].map(i=>document.querySelector(`.section-${i}`));
  const slides=['7:5482','28:3340','28:3357'].map(byNode);
@@ -101,79 +101,26 @@ for (const id of ["28:2051", "28:2405", "28:2625", "28:2146", "28:2269", "28:334
  const markers=document.createElement('img');markers.className='process-markers';markers.alt='';markers.src=markerSources[0];navigation.append(markers);
  const buttons=slides.map((slide,i)=>{
   const button=document.createElement('button');button.type='button';button.className='process-step-button';button.setAttribute('aria-label',['Шаг 1: Закваска','Шаг 2: Брожение','Шаг 3: Печь'][i]);
-  button.onclick=()=>{const top=story.getBoundingClientRect().top+window.scrollY;window.scrollTo({top:top+i*window.innerHeight*.8+1,behavior:'instant'});};
   navigation.append(button);slide.classList.add('process-slide');content.append(slide);return button;
  });
  sections[0].before(story);picture.classList.add('process-picture');layout.append(picture,navigation,content);pin.append(layout);story.append(pin);sections.forEach(el=>el.remove());
- let current=0,amount=0,lastDirection=0,gestureTimer=0,consumed=false;
- const setStep=index=>{
-  current=Math.min(2,Math.max(0,index));story.dataset.step=String(current+1);markers.src=markerSources[current];
-  slides.forEach((slide,i)=>{slide.classList.toggle('is-current',i===current);slide.inert=i!==current;slide.setAttribute('aria-hidden',String(i!==current));buttons[i].setAttribute('aria-current',i===current?'step':'false');});
+ navigation.setAttribute('role','tablist');navigation.setAttribute('aria-orientation','vertical');
+ let current=0;
+ const setStep=(index,focus=false)=>{
+  current=(index+3)%3;story.dataset.step=String(current+1);markers.src=markerSources[current];
+  slides.forEach((slide,i)=>{const active=i===current;slide.classList.toggle('is-current',active);slide.inert=!active;slide.setAttribute('aria-hidden',String(!active));
+   const button=buttons[i];button.setAttribute('aria-selected',String(active));button.tabIndex=active?0:-1;});
+  if(focus)buttons[current].focus();
  };
- buttons.forEach((button,i)=>{button.onclick=()=>setStep(i);});
- const anchor=()=>story.getBoundingClientRect().top+window.scrollY-(document.querySelector('.site-header')?.offsetHeight||0);
- let locked=false,lastStepTime=0,settling=false,entryFrame=0,releasedDirection=0;
- const releaseStory=direction=>{locked=false;releasedDirection=direction;};
- window.addEventListener('site:navigate',()=>{locked=false;settling=false;cancelAnimationFrame(entryFrame);releasedDirection=0;});
- const enterStory=direction=>{
-  locked=true;settling=true;releasedDirection=0;setStep(direction>0?0:2);
-  consumed=true;lastDirection=direction;lastStepTime=performance.now();
-  const from=window.scrollY,to=anchor(),start=performance.now();
-  const duration=matchMedia('(prefers-reduced-motion: reduce)').matches?0:360;
-  cancelAnimationFrame(entryFrame);
-  const settle=now=>{
-   const t=duration?Math.min(1,(now-start)/duration):1;
-   window.scrollTo({top:from+(to-from)*(1-Math.pow(1-t,3)),behavior:'instant'});
-   if(t<1)entryFrame=requestAnimationFrame(settle);
-   else{settling=false;consumed=false;amount=0;lastStepTime=performance.now();}
-  };
-  entryFrame=requestAnimationFrame(settle);
- };
- // Prevent input while held; never correct scroll position after the browser moved.
- const crossesStory=delta=>{
-  const distance=anchor()-window.scrollY,direction=Math.sign(delta);
-  if(releasedDirection){
-   if(Math.abs(distance)>4||direction!==releasedDirection)releasedDirection=0;
-   else return false;
-  }
-  return delta>0?distance>=-1&&distance<=delta:distance<=1&&distance>=delta;
- };
- // Consume one scroll gesture per stage, without adding empty scroll space.
- window.addEventListener('wheel',event=>{
-  if(event.ctrlKey||Math.abs(event.deltaX)>Math.abs(event.deltaY)||event.target.closest('.dev-panel'))return;
-  const delta=event.deltaY*(event.deltaMode===1?16:event.deltaMode===2?window.innerHeight:1);
-  const direction=Math.sign(delta);if(!direction)return;
-  if(!locked){
-   if(!crossesStory(delta))return;
-   event.preventDefault();enterStory(direction);
-  }
-  if(settling){event.preventDefault();return;}
-  if(direction!==lastDirection){amount=0;consumed=false;lastDirection=direction;}
-  clearTimeout(gestureTimer);gestureTimer=setTimeout(()=>{amount=0;consumed=false;},180);
-  const canChange=direction>0?current<2:current>0;
-  if(consumed){event.preventDefault();return;}
-  if(!canChange){if(performance.now()-lastStepTime<650){event.preventDefault();return;}releaseStory(direction);return;}
-  event.preventDefault();amount+=Math.abs(event.deltaY)*(event.deltaMode===1?16:event.deltaMode===2?window.innerHeight:1);
-  if(amount>=40&&performance.now()-lastStepTime>=650){setStep(current+direction);lastStepTime=performance.now();consumed=true;amount=0;}
- },{passive:false});
- let touchStart=0,touchConsumed=false;
- window.addEventListener('touchstart',event=>{touchStart=event.touches[0]?.clientY||0;touchConsumed=false;},{passive:true});
- window.addEventListener('touchmove',event=>{
-  const delta=touchStart-(event.touches[0]?.clientY||touchStart),direction=Math.sign(delta);
-  if(!direction)return;
-  if(!locked){if(!crossesStory(delta))return;enterStory(direction);touchConsumed=true;}
-  if(touchConsumed||settling){event.preventDefault();return;}
-  if((direction>0&&current<2)||(direction<0&&current>0)){
-   event.preventDefault();if(Math.abs(delta)>45){setStep(current+direction);lastStepTime=performance.now();touchConsumed=true;}
-  }else{releaseStory(direction);}
- },{passive:false});
- window.addEventListener('keydown',event=>{
-  if(event.target.closest('button,a,input,textarea,select,[contenteditable]'))return;
-  const direction=['ArrowDown','PageDown',' '].includes(event.key)?1:['ArrowUp','PageUp'].includes(event.key)?-1:0;
-  if(!direction)return;
-  if(!locked){if(!crossesStory(direction*window.innerHeight))return;event.preventDefault();enterStory(direction);return;}
-  if(settling){event.preventDefault();return;}
-  if(direction&&((direction>0&&current<2)||(direction<0&&current>0))){event.preventDefault();if(!event.repeat){setStep(current+direction);lastStepTime=performance.now();}}else if(!event.repeat){releaseStory(direction);}else{event.preventDefault();}
+ buttons.forEach((button,i)=>{
+  button.setAttribute('role','tab');button.id='process-tab-'+(i+1);slides[i].id='process-panel-'+(i+1);
+  button.setAttribute('aria-controls',slides[i].id);slides[i].setAttribute('role','tabpanel');slides[i].setAttribute('aria-labelledby',button.id);
+  button.addEventListener('click',()=>setStep(i));
+  button.addEventListener('keydown',event=>{
+   const move={ArrowDown:1,ArrowRight:1,ArrowUp:-1,ArrowLeft:-1}[event.key];
+   if(move){event.preventDefault();setStep(current+move,true);}
+   else if(event.key==='Home'||event.key==='End'){event.preventDefault();setStep(event.key==='Home'?0:2,true);}
+  });
  });
  setStep(0);
 
