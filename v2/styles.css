@@ -166,7 +166,7 @@ ol,ul{padding:0;list-style:none}
 .dial-hand{transform-origin:120px 120px}
 .dial-hand path,.dial-hand circle{fill:var(--ink)}
 .dial-hub{fill:var(--orange)}.dial-hub2{fill:var(--paper)}
-.seg{display:inline-grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);padding:4px;border-radius:16px;background:var(--sand)}
+.seg{display:inline-grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);padding:4px;border-radius:16px;background:#FAF6ED}
 .seg button{display:flex;align-items:center;justify-content:center;min-width:96px;min-height:50px;padding:0 20px;border:0;border-radius:12px;background:none;color:var(--muted);font:500 18px/1 var(--sans);cursor:pointer;transition:background .25s,color .25s}
 .seg button:hover{color:var(--ink)}
 .seg button[aria-pressed=true]{background:var(--orange);color:var(--ink)}
