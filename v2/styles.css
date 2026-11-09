@@ -348,8 +348,9 @@ ol,ul{padding:0;list-style:none}
 }
 @media (max-width:640px){
   :root{--gutter:16px}
-  .h-xl{font-size:34px}
-  .script{font-size:40px;line-height:40px}
+  .h-xl,.sleep-h,.pv2 .process-head h2{font-size:24px}
+  .pv2 .process-head p,.pv2 .panels p,.card-text p{font-size:16px;line-height:24px}
+  .script{font-size:28px;line-height:32px}
   .top-row{height:64px}
   .brand-logo{width:118px}
   .top-cta{display:none}
@@ -366,18 +367,17 @@ ol,ul{padding:0;list-style:none}
   .gift,.clock{padding:24px}
   .big{font-size:44px}
   .look-shots{grid-template-columns:1fr}
-  .fmt h3{font-size:30px}
+  .fmt h3,.principles h3,.pv2 .tab-title,.pv2 .panels h3{font-size:20px}
   .fmt-card{padding:24px}
   .fmt--top .fmt-card{padding-bottom:48px}
   .fmt--bottom .fmt-card{padding-top:48px}
-  .film-card{padding:24px}
+  .film-card{padding:24px;font-size:16px;line-height:24px}
   .store-steps{grid-template-columns:1fr}
-  .final{min-height:0;padding-top:48px;padding-bottom:304px}
-  .final-bg{object-position:72% center}
-  .final::before{background:linear-gradient(180deg,#F2CFAA 0%,#F2CFAA 45%,rgba(242,207,170,0) 75%)}
+  .final{--final-photo-height:304px;min-height:0;padding:0 0 48px;background:#F2CFAA}
+  .final-bg{position:static;height:var(--final-photo-height);object-position:72% center}
+  .final::before{bottom:auto;height:var(--final-photo-height);background:linear-gradient(to bottom,rgba(242,207,170,0) 55%,#F2CFAA 100%)}
   .artisan-list{grid-template-columns:1fr}
   .artisan-list li{padding:24px}
-  .pv2 .process-head h2{font-size:34px}
   .pv2 .wrap{padding:56px var(--gutter)}
   .pv2 .stage{padding:16px;border-radius:20px}
   .pv2 .scene{border-radius:16px}
@@ -437,7 +437,7 @@ ol,ul{padding:0;list-style:none}
   .artisan-list li,.store-steps li{gap:8px}
   .fmt-img--whole{margin-bottom:-48px}
   .format-h,.store-h{margin:16px 0 24px}
-  .final .wrap{gap:24px}
+  .final .wrap{gap:24px;padding-top:16px}
   .final h2{gap:8px}
   .final h2 .script{margin-left:0}
   .foot-brand{padding:8px 0}

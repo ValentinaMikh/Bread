@@ -109,7 +109,7 @@
 @media(max-width:600px){
   .pv2 .wrap{padding:64px 16px}
   .pv2 .eyebrow{font-size:14px}
-  .pv2 h2.baked{font-size:34px}
+  .pv2 h2.baked{font-size:28px}
   .pv2 .process-head p,.pv2 .panels p{font-size:16px;line-height:24px}
   .pv2 .tabs{grid-template-columns:1fr;border:0}
   .pv2 .tab{padding:16px 0;border-top:1px solid var(--pv-rule)}
