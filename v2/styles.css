@@ -115,6 +115,29 @@ ol,ul{padding:0;list-style:none}
 .seal{position:absolute;left:-41px;bottom:-52px;width:134px;height:136px;filter:drop-shadow(0 6px 10px rgba(39,11,10,.25))}
 .crust-copy{display:flex;flex-direction:column;gap:48px}
 
+/* 02a · Хлеб на живой закваске — три принципа с анимированными иконками */
+.sour-head{display:flex;flex-direction:column;gap:24px;max-width:760px}
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px}
+.pillars li{display:flex;flex-direction:column;gap:12px;padding:32px;border-radius:24px;background:var(--card);border:1px solid var(--chip-line)}
+.pillars h3{margin-top:16px;font:700 24px/1.15 var(--sans);letter-spacing:-.025em;color:var(--ink)}
+.pillars p{color:var(--muted)}
+.ico{width:60px;height:60px;fill:none;stroke:var(--orange);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+.ico .b{fill:var(--orange);stroke:none;opacity:0;transform-box:fill-box;transform-origin:center}
+.ico-hand .palm,.ico-hand .dough{transform-box:fill-box;transform-origin:50% 100%}
+.ico-oven .fl{fill:var(--orange);stroke:none;transform-box:fill-box;transform-origin:50% 100%;opacity:.85}
+.pillars .in .ico-jar .b{animation:bub2 2.6s ease-in infinite}
+.pillars .in .ico-jar .b2{animation-delay:.8s}.pillars .in .ico-jar .b3{animation-delay:1.6s}
+.pillars .in .ico-jar path:nth-child(2){animation:wave 2.4s ease-in-out infinite alternate}
+.pillars .in .ico-hand .palm{animation:press2 2.4s var(--ease) infinite}
+.pillars .in .ico-hand .dough{animation:squash2 2.4s var(--ease) infinite}
+.pillars .in .ico-oven .fl{animation:flick2 .8s ease-in-out infinite alternate;filter:drop-shadow(0 0 4px rgba(229,142,26,.6))}
+.pillars .in .ico-oven .fl2{animation-duration:1s;animation-delay:-.3s}
+@keyframes bub2{0%{opacity:0;transform:translateY(2px) scale(.6)}25%{opacity:1}100%{opacity:0;transform:translateY(-22px) scale(1.7)}}
+@keyframes wave{to{transform:translateY(-2.5px)}}
+@keyframes press2{0%,100%{transform:translateY(-3px) rotate(-3deg)}45%{transform:translateY(8px) rotate(2deg)}}
+@keyframes squash2{0%,100%{transform:scale(1)}45%{transform:scale(1.16,.74)}}
+@keyframes flick2{from{transform:scaleY(.55);opacity:.7}to{transform:scaleY(1.3) skewX(-5deg);opacity:1}}
+
 /* 03 · Процесс — блок из process-v2.css, перекрашенный по макету варианта 2 */
 .pv2{width:100%;max-width:none;zoom:1;background:var(--paper);--pv-paper:var(--paper);--pv-raw:#b7a593;--pv-text:var(--muted);--pv-green:var(--orange);--pv-lime:#ffad3f;font-family:var(--sans)}
 .pv2 .wrap{max-width:calc(var(--wrap) + 2*var(--gutter));padding:120px var(--gutter)}
@@ -392,6 +415,11 @@ ol,ul{padding:0;list-style:none}
   .look-copy{gap:20px;margin-bottom:32px}
   .look-photo{position:relative;width:100%;aspect-ratio:760/450}
   .principles{grid-template-columns:1fr;gap:28px}
+  .pillars{grid-template-columns:1fr;gap:16px;margin-top:40px}
+  .pillars li{flex-direction:row;flex-wrap:wrap;align-items:center;column-gap:20px;padding:24px}
+  .pillars li .ico{width:48px;height:48px}
+  .pillars h3{margin:0;flex:1 1 0}
+  .pillars p{flex-basis:100%}
   .ripen-grid{grid-template-columns:1fr;grid-template-areas:"copy" "dial" "pick";row-gap:32px}
   .dial{width:min(80vw,360px)}
   .final::before{background:linear-gradient(90deg,#F2CFAA 0%,rgba(242,207,170,.85) 45%,rgba(231,215,194,0) 75%)}
@@ -529,6 +557,7 @@ ol,ul{padding:0;list-style:none}
   .foot-brand{padding:8px 0}
 }
 @media (prefers-reduced-motion:reduce){
+  .pillars .ico *{animation:none!important}
   html{scroll-behavior:auto}
   .reveal{opacity:1;transform:none;transition:none}
 }
