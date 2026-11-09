@@ -235,6 +235,14 @@ ol,ul{padding:0;list-style:none}
 .all-link{display:inline-block;margin-top:32px;color:var(--orange);transition:letter-spacing .3s var(--ease)}
 .all-link:hover{text-decoration:underline;text-underline-offset:4px}
 
+/* 10a · Артизанальная пекарня */
+.artisan-top{display:grid;grid-template-columns:1fr 600px;gap:56px;align-items:end}
+.artisan-top .h-xl .script{display:block;margin-top:12px;line-height:62.7px}
+.artisan-list{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:56px}
+.artisan-list li{display:flex;flex-direction:column;gap:16px;padding:32px;border-radius:24px;background:var(--paper)}
+.artisan-list h3{font:500 18px/27px var(--sans);text-transform:uppercase;color:var(--orange)}
+.artisan-list p{color:var(--muted)}
+
 /* 11 · Сколько спит пекарь */
 .sleep{min-height:549px;padding-top:80px;display:flex}
 .sleep-inner{gap:40px;width:min(1000px,calc(100% - 2*var(--gutter)));justify-content:flex-end}
@@ -319,6 +327,8 @@ ol,ul{padding:0;list-style:none}
   .look-row{flex-direction:column;align-items:flex-start;gap:16px}
   .look-row .lead{width:auto}
   .principles{grid-template-columns:1fr;gap:28px}
+  .artisan-top{grid-template-columns:1fr;gap:24px}
+  .artisan-list{grid-template-columns:repeat(2,1fr);margin-top:40px}
   .formats{gap:72px}
   .fmt-img--slices{margin:-40px 0 0;width:min(446px,80%)}
   .fmt-img--whole{width:min(411px,70%)}
@@ -360,6 +370,8 @@ ol,ul{padding:0;list-style:none}
   .fmt--bottom .fmt-card{padding-top:48px}
   .film-card{padding:24px}
   .store-steps{grid-template-columns:1fr}
+  .artisan-list{grid-template-columns:1fr}
+  .artisan-list li{padding:24px}
   .pv2 .process-head h2{font-size:34px}
   .pv2 .process-head h2 em{font-size:40px}
   .pv2 .wrap{padding:56px var(--gutter)}
