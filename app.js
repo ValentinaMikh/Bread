@@ -162,7 +162,7 @@ for (const id of ["28:2051", "28:2405", "28:2625", "28:2146", "28:2269", "28:334
  const bakery=document.querySelector('.section-13'),principles=byNode('28:783');
  const items=['28:784','28:787','28:790'].map(byNode);
  const widget=document.createElement('aside');widget.className='dev-widget';widget.setAttribute('aria-label','Dev Mod — варианты блоков');
- widget.innerHTML=`<button class="dev-toggle" type="button" aria-expanded="false" aria-controls="dev-panel"><span aria-hidden="true">◈</span> Dev Mod</button><div class="dev-panel" id="dev-panel" hidden><div class="dev-panel-header"><strong>Варианты блоков</strong><button class="dev-close" type="button" aria-label="Закрыть Dev Mod">×</button></div><label for="bakery-variant">Своя ремесленная пекарня</label><select id="bakery-variant"><option value="original">01 — Исходный макет</option><option value="production">02 — Линия производства</option><option value="photo">03 — Фотография с привязкой к тексту</option></select><p class="dev-description"></p><label for="process-variant">Пока хлеб созревает</label><select id="process-variant"><option value="original">01 — Исходный макет</option><option value="illustrated">02 — Иллюстрированный процесс</option></select><p class="dev-description dev-process-description"></p><a class="dev-link" href="v2/">Вариант дизайна 2 — открыть →</a></div>`;
+ widget.innerHTML=`<button class="dev-toggle" type="button" aria-expanded="false" aria-controls="dev-panel"><span aria-hidden="true">◈</span> Dev Mod</button><div class="dev-panel" id="dev-panel" hidden><div class="dev-panel-header"><strong>Варианты блоков</strong><button class="dev-close" type="button" aria-label="Закрыть Dev Mod">×</button></div><div class="dev-design"><label for="design-variant">Дизайн лендинга</label><select id="design-variant"><option value="1">01 — Исходный макет</option><option value="2">02 — Пекарня МясновЪ</option></select><p class="dev-description dev-design-description"></p></div><div class="dev-v1-only"><label for="bakery-variant">Своя ремесленная пекарня</label><select id="bakery-variant"><option value="original">01 — Исходный макет</option><option value="production">02 — Линия производства</option><option value="photo">03 — Фотография с привязкой к тексту</option></select><p class="dev-description"></p><label for="process-variant">Пока хлеб созревает</label><select id="process-variant"><option value="original">01 — Исходный макет</option><option value="illustrated">02 — Иллюстрированный процесс</option></select><p class="dev-description dev-process-description"></p></div></div>`;
  document.body.append(widget);
  const toggle=widget.querySelector('.dev-toggle'),panel=widget.querySelector('.dev-panel'),select=widget.querySelector('#bakery-variant');
  const close=()=>{panel.hidden=true;toggle.setAttribute('aria-expanded','false');};
@@ -223,6 +223,21 @@ for (const id of ["28:2051", "28:2405", "28:2625", "28:2146", "28:2269", "28:334
  processSelect.onchange=()=>applyProcess(processSelect.value);
  let savedProcess='illustrated';try{savedProcess=localStorage.getItem('ripening-variant')||'illustrated';}catch{}
  applyProcess(['original','illustrated'].includes(savedProcess)?savedProcess:'illustrated');
+ // Дизайн лендинга: 02 открывается на этой же странице поверх варианта 01 (v2/ во встроенном режиме).
+ const designSelect=widget.querySelector('#design-variant');let designFrame=null;
+ const applyDesign=value=>{
+  const v2=value==='2';designSelect.value=v2?'2':'1';
+  document.documentElement.classList.toggle('design-v2',v2);
+  if(v2&&!designFrame){designFrame=document.createElement('iframe');designFrame.className='design-frame';designFrame.title='Лендинг — дизайн 02, Пекарня МясновЪ';designFrame.src='v2/index.html?embed=1';document.body.append(designFrame);}
+  if(designFrame)designFrame.hidden=!v2;
+  for(const el of document.querySelectorAll('body > header, body > main, body > footer, body > .skip, body > .back-to-top'))el.inert=v2;
+  widget.querySelector('.dev-v1-only').hidden=v2;
+  widget.querySelector('.dev-design-description').textContent=v2?'Тексты как в варианте 01. Варианты отдельных блоков относятся к дизайну 01.':'Исходный дизайн по макету Figma.';
+  try{localStorage.setItem('design-variant',v2?'2':'1');}catch{}
+ };
+ designSelect.onchange=()=>applyDesign(designSelect.value);
+ let savedDesign='1';try{savedDesign=localStorage.getItem('design-variant')||'1';}catch{}
+ applyDesign(savedDesign);
  window.addEventListener('scroll',requestUpdate,{passive:true});window.addEventListener('resize',requestUpdate,{passive:true});new ResizeObserver(requestUpdate).observe(principles);
 }
 // Small, interruptible motion for the dough maturation card.
