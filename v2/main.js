@@ -43,78 +43,63 @@ const ICON={clock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" st
  leaf:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 19c0-9 6-14 15-14 0 9-5 15-14 15"/><path d="M5 19l7-7"/></svg>'};
 const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)');
 
-/* ===== тема ===== */
-(function(){const root=document.documentElement,btn=$('#themeBtn');
- const sync=()=>btn.setAttribute('aria-pressed',String(root.dataset.theme==='dark'));sync();
- btn.addEventListener('click',()=>{root.dataset.theme=root.dataset.theme==='dark'?'light':'dark';sync();try{localStorage.setItem('myasnov-theme',root.dataset.theme)}catch(e){}track('theme',{to:root.dataset.theme})})})();
+const KL_SMALL='<svg class="kl" width="34" height="20" viewBox="0 0 34 20" role="img" aria-label="КлЛ"><rect width="34" height="20" rx="5" fill="#8DB93E"/><path d="M10.868 14C10.7 13.728 10.5 13.436 10.268 13.124C10.044 12.804 9.796 12.488 9.524 12.176C9.26 11.856 8.984 11.552 8.696 11.264C8.408 10.968 8.12 10.708 7.832 10.484V14H5.96V5.684H7.832V8.828C8.32 8.316 8.808 7.784 9.296 7.232C9.792 6.672 10.252 6.156 10.676 5.684H12.896C12.328 6.356 11.756 7.004 11.18 7.628C10.612 8.252 10.012 8.88 9.38 9.512C10.044 10.064 10.684 10.72 11.3 11.48C11.924 12.24 12.52 13.08 13.088 14H10.868ZM18.5191 9.152H15.8311V14H14.0431V7.688H18.5191V9.152ZM23.2366 7.268C23.2126 7.804 23.1806 8.344 23.1406 8.888C23.1086 9.424 23.0446 9.944 22.9486 10.448C22.8606 10.952 22.7286 11.424 22.5526 11.864C22.3846 12.304 22.1486 12.692 21.8446 13.028C21.5486 13.364 21.1766 13.632 20.7286 13.832C20.2806 14.032 19.7326 14.144 19.0846 14.168L18.8806 12.536C19.4566 12.472 19.9006 12.328 20.2126 12.104C20.5246 11.872 20.7606 11.52 20.9206 11.048C21.1206 10.464 21.2606 9.712 21.3406 8.792C21.4286 7.864 21.4726 6.828 21.4726 5.684H27.1486V14H25.2766V7.268H23.2366Z" fill="#fff"/></svg>';
+const CLOCK16='<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 4v4l2.67 1.33M14.67 8A6.67 6.67 0 1 1 1.33 8a6.67 6.67 0 0 1 13.34 0Z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>';
+const CLOCK14='<svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7 3.5V7l2.33 1.17M12.83 7A5.83 5.83 0 1 1 1.17 7a5.83 5.83 0 0 1 11.66 0Z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>';
+const SCALE14='<svg viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21h14l-2-12H7L5 21Z"/><circle cx="12" cy="6" r="3"/></svg>';
+const FORM14='<svg viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 9h18l-2 11H5L3 9Z"/><path d="M6 9c0-3 3-5 6-5s6 2 6 5"/></svg>';
 
 /* ===== ссылки ===== */
 $$('[data-cat]').forEach(a=>a.href=withUtm(CONFIG.catalogUrl,'catalog'));
 $$('[data-utm]').forEach(a=>a.href=withUtm(a.getAttribute('href'),'format'));
 $('#appBtn').href=CONFIG.appUrl?CONFIG.appUrl:withUtm(CONFIG.catalogUrl,'app');
 
-/* ===== шапка: прогресс, тень; нижняя панель на телефоне ===== */
-(function(){const top=$('#top'),pr=$('#progress'),dock=$('#dock'),links=$$('a',dock);let tick=false;
- function upd(){const h=document.documentElement;pr.style.setProperty('--p',(h.scrollTop/(h.scrollHeight-h.clientHeight||1)).toFixed(4));top.classList.toggle('scrolled',h.scrollTop>8);
-  const near=id=>{const r=document.getElementById(id).getBoundingClientRect();return r.top<innerHeight&&r.bottom>0};
-  const show=h.scrollTop>innerHeight*.9&&!near('bread')&&!near('preorder');
-  dock.classList.toggle('show',show);dock.setAttribute('aria-hidden',String(!show));links.forEach(a=>a.tabIndex=show?0:-1);tick=false}
+/* ===== шапка: прогресс прокрутки и тень ===== */
+(function(){const top=$('#top'),pr=$('#progress');let tick=false;
+ function upd(){const h=document.documentElement;pr.style.setProperty('--p',(h.scrollTop/(h.scrollHeight-h.clientHeight||1)).toFixed(4));top.classList.toggle('scrolled',h.scrollTop>8);tick=false}
  addEventListener('scroll',()=>{if(!tick){tick=true;requestAnimationFrame(upd)}},{passive:true});addEventListener('resize',upd,{passive:true});upd()})();
 
 /* ===== появление блоков ===== */
-(function(){const els=$$('.reveal');if(!('IntersectionObserver' in window)||reduceMotion.matches){els.forEach(e=>e.classList.add('in'));return}
+(function(){const els=$$('.reveal');requestAnimationFrame(()=>$('#heroMedia').classList.add('in'));
+ if(!('IntersectionObserver' in window)||reduceMotion.matches){els.forEach(e=>e.classList.add('in'));return}
  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px'});
- els.forEach((e,i)=>{e.style.transitionDelay=(i%3)*80+'ms';io.observe(e)});
- requestAnimationFrame(()=>$('#heroMedia').classList.add('in'))})();
-
-/* ===== Сколько созревает тесто — как в первой версии ===== */
-(function(){const fg=$('#ringFg'),val=$('#ringVal'),lbl=$('#ringLbl'),list=$('#dialList'),C=326.73;let seen=false;
- const rows={16:BREADS.filter(b=>b.h===16).map(b=>`<li><a href="#card-${b.id}" data-goto="${b.id}"><span>${b.name}</span><span>${b.w}</span></a></li>`).join('')};
- const other=`<li><a href="${withUtm(CONFIG.catalogUrl,'dial')}"><span>Выбрать хлеб с долгим созреванием →</span></a></li><li class="dial-note">Ассортимент и характеристики — в каталоге.</li>`;
- function set(h,user){$$('.seg button').forEach(b=>b.setAttribute('aria-pressed',String(+b.dataset.h===h)));val.textContent=h;lbl.textContent=word(h,'час','часа','часов')+' созревания';
-  list.innerHTML=rows[h]||other;if(seen)fg.style.strokeDashoffset=C*(1-h/24);if(user)track('dial',{hours:h})}
- $$('.seg button').forEach(b=>b.addEventListener('click',()=>set(+b.dataset.h,true)));
- set(16);
- const io=new IntersectionObserver(es=>{if(es[0].isIntersecting){io.disconnect();seen=true;requestAnimationFrame(()=>{fg.style.strokeDashoffset=C*(1-(+val.textContent)/24)})}},{threshold:.4});io.observe($('.dial'))})();
+ els.forEach((e,i)=>{e.style.transitionDelay=(i%3)*80+'ms';io.observe(e)})})();
 
 /* ===== каталог ===== */
-function metaHtml(b){return `<span>${ICON.scale}${b.w}</span>`+(b.h?`<span>${ICON.clock}${b.h} ${word(b.h,'час','часа','часов')} созревания</span>`:'')+(b.form?`<span>${ICON.form}выпекаем в форме</span>`:'')}
-(function(){const grid=$('#grid');
+function metaHtml(b){return `<span>${SCALE14}${b.w}</span>`+(b.h?`<span>${CLOCK14}${b.h} ${word(b.h,'час','часа','часов')} созревания</span>`:'')+(b.form?`<span>${FORM14}выпекаем в форме</span>`:'')}
+(function(){
  const cardHtml=b=>`<article class="card" id="card-${b.id}" data-g="${b.g}" data-use="${b.use.join(' ')}" style="--vt:c-${b.id}">
   <div class="card-media">
-   ${b.h?`<span class="badge">${ICON.clock}${b.h} ч</span>`:''}
+   ${b.h?`<span class="badge">${CLOCK16}${b.h} ч</span>`:''}
    <img src="${IMG[b.v[0][0]]}" alt="${b.name}" loading="lazy" decoding="async" width="900" height="900">
   </div>
   <div class="card-body">
-   <h3>${b.name}</h3>
    <div class="meta">${metaHtml(b)}</div>
-   <p>${b.d}</p>
-   <div class="card-foot"><span class="kegl"><b>+${b.k}</b>${KEGL}<span>за предзаказ</span></span>
-   <a class="btn" href="${breadUrl(b)}" data-sku="${b.id}">Заказать</a></div>
+   <div class="card-text"><h3>${b.name}</h3><p>${b.d}</p></div>
+   <div class="card-foot"><span class="kegl"><b>+${b.k}</b>${KL_SMALL}<span>за предзаказ</span></span>
+   <a class="order" href="${breadUrl(b)}" data-sku="${b.id}">Заказать</a></div>
   </div></article>`;
  $('#gLong').innerHTML=BREADS.filter(b=>b.g=='long').map(cardHtml).join('');
  $('#gClassic').innerHTML=BREADS.filter(b=>b.g=='classic').map(cardHtml).join('');
  const chips=$$('.filters .chip');
  chips.forEach(c=>c.addEventListener('click',()=>{const f=c.dataset.f;chips.forEach(x=>x.setAttribute('aria-pressed',String(x===c)));
-  const apply=()=>{$$('.card',grid).forEach(card=>card.hidden=!(f=='all'||card.dataset.g==f||card.dataset.use.split(' ').includes(f)));$$('.grp',grid).forEach(g=>g.hidden=!$$('.card',g).some(c=>!c.hidden))};
+  const apply=()=>{$$('.card').forEach(card=>card.hidden=!(f=='all'||card.dataset.g==f||card.dataset.use.split(' ').includes(f)));
+   $$('.grp').forEach(g=>g.hidden=!$$('.card',g).some(c=>!c.hidden))};
   document.startViewTransition&&!reduceMotion.matches?document.startViewTransition(apply):apply();track('filter',{f})}))})();
-document.addEventListener('click',e=>{const g=e.target.closest('[data-goto]');if(!g)return;e.preventDefault();const id=g.dataset.goto,el=$('#card-'+id);
- if(el.hidden){$$('.card').forEach(c=>c.hidden=false);$$('.grp').forEach(g=>g.hidden=false);$$('.filters .chip').forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.f==='all')))}
- el.scrollIntoView({behavior:reduceMotion.matches?'auto':'smooth',block:'center'});el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');track('goto',{sku:id})});
-document.addEventListener('click',e=>{const a=e.target.closest('.card .btn');if(a)track('card_cta',{sku:a.dataset.sku})});
+document.addEventListener('click',e=>{const a=e.target.closest('.card .order');if(a)track('card_cta',{sku:a.dataset.sku})});
 
-/* ===== Рассмотрите — потом попробуйте: нож ===== */
-(function(){const c=$('#compare'),r=$('#knife');let used=false;
- r.addEventListener('input',()=>{used=true;c.style.setProperty('--x',r.value+'%')});
- const io=new IntersectionObserver(es=>{if(es[0].isIntersecting){io.disconnect();if(reduceMotion.matches||used)return;let t=0;const a=()=>{if(used)return;t+=0.02;const v=50+Math.sin(t*3)*22*Math.max(0,1-t/2.2);c.style.setProperty('--x',v+'%');r.value=v;if(t<2.2)requestAnimationFrame(a)};a()}},{threshold:.6});io.observe(c)})();
+/* ===== Рассмотрите — покажем ближе ===== */
+(function(){const btn=$('#lookBtn'),dlg=$('#lookDialog');if(!btn||!dlg)return;
+ btn.addEventListener('click',()=>{if(dlg.showModal)dlg.showModal();else dlg.setAttribute('open','');track('look')});
+ dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()})})();
 
-/* ===== предзаказ: до 15:00 по Москве — тексты первой версии ===== */
-(function(){const box=$('#clock'),st=$('#clkState'),big=$('#clkBig'),sub=$('#clkSub'),bar=$('#clkBar');
+/* ===== предзаказ: до 15:00 по Москве ===== */
+(function(){const box=$('#clock'),st=$('#clkState'),big=$('#clkBig'),sub=$('#clkSub');
  function msk(){const p=new Intl.DateTimeFormat('ru-RU',{timeZone:CONFIG.tz,hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'}).formatToParts(new Date());const g=t=>+p.find(x=>x.type==t).value;return g('hour')*3600+g('minute')*60+g('second')}
  function upd(){const s=msk(),cut=CONFIG.cutoffHour*3600;
   if(s<cut){const left=cut-s,h=Math.floor(left/3600),m=Math.floor(left%3600/60);box.classList.remove('late');
-   st.textContent='Принимаем заказы на завтра';big.innerHTML=`${h}<small>${word(h,'час','часа','часов')}</small> ${m}<small>мин</small>`;
-   sub.innerHTML='Осталось до 15:00 по Москве — успейте оформить, и&nbsp;свежий хлеб будет у&nbsp;вас завтра утром.';bar.style.setProperty('--w',(100*s/cut).toFixed(1)+'%')}
+   st.textContent='Принимаем заказы на завтра';big.innerHTML=`${h}<small>${word(h,'час','часа','часов')}</small>${m}<small>мин</small>`;
+   sub.innerHTML='Осталось до 15:00 по Москве — успейте оформить, и&nbsp;свежий хлеб будет у&nbsp;вас завтра утром.'}
   else{box.classList.add('late');st.textContent='Предзаказ из пекарни';big.textContent='До 15:00';
-   sub.textContent='Выберите доступную дату и время получения на сайте или в приложении КуулКлевер.';bar.style.setProperty('--w','100%')}}
+   sub.textContent='Выберите доступную дату и время получения на сайте или в приложении КуулКлевер.'}}
  upd();setInterval(upd,15000)})();
