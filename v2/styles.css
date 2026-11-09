@@ -159,7 +159,7 @@ ol,ul{padding:0;list-style:none}
 .filters{display:flex;flex-wrap:wrap;align-items:center;gap:8.5px;margin:40px 0}
 .chip{display:inline-flex;align-items:center;gap:8px;height:41px;padding:0 16px;border-radius:8px;border:1px solid var(--chip-line);background:var(--chip);color:var(--muted);font:400 18px/27px var(--sans);cursor:pointer;transition:background .2s,color .2s,border-color .2s}
 .chip:hover{border-color:#d9c1a0}
-.chip[aria-pressed=true]{background:var(--green);border-color:var(--green);color:var(--paper)}
+.chip[aria-pressed=true]{background:var(--orange);border-color:var(--orange);color:var(--ink)}
 .sep{width:1px;height:24px;background:#CEB79A;margin:0 3.5px}
 .grid{display:grid;gap:24px}
 .grid--3{grid-template-columns:repeat(3,1fr)}
