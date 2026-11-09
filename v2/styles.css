@@ -116,7 +116,9 @@ ol,ul{padding:0;list-style:none}
 .pv2 .tab-title{font:700 40px/1 var(--sans);letter-spacing:-.025em;color:var(--ink);margin:16px 0 10px}
 .pv2 .tab-copy{color:var(--muted)}
 .pv2 .tab[aria-selected=true] .tab-copy{color:var(--muted)}
-.pv2 .stage{margin-top:64px;background:transparent;border-radius:0;padding:0;gap:72px}
+.pv2 .stage{margin-top:64px;background:var(--beige);border-radius:24px;padding:48px;gap:72px}
+.pv2 .scene{border-radius:24px}
+.pv2 .rail button{border-top-color:rgba(39,11,10,.14)}
 .pv2 .panel-label{font:500 18px/27px var(--sans);letter-spacing:0;color:var(--orange)}
 .pv2 .panels h3{font:700 40px/1 var(--sans);letter-spacing:-.025em}
 .pv2 .rail button span{color:var(--orange)}
@@ -341,7 +343,7 @@ ol,ul{padding:0;list-style:none}
   .pv2 .process-head h2 em{font-size:50px}
   .pv2 .process-head{grid-template-columns:1fr;gap:20px}
   .pv2 .tab-title{font-size:30px}
-  .pv2 .stage{grid-template-columns:1fr;gap:28px}
+  .pv2 .stage{grid-template-columns:1fr;gap:28px;padding:32px}
   .pv2 .bar-label b{font-size:30px}
 }
 @media (max-width:640px){
@@ -376,6 +378,8 @@ ol,ul{padding:0;list-style:none}
   .pv2 .process-head h2{font-size:34px}
   .pv2 .process-head h2 em{font-size:40px}
   .pv2 .wrap{padding:56px var(--gutter)}
+  .pv2 .stage{padding:16px;border-radius:20px}
+  .pv2 .scene{border-radius:16px}
   .embed .foot{padding-bottom:140px}
 }
 @media (prefers-reduced-motion:reduce){
