@@ -12,7 +12,7 @@ const CONFIG={
     film:{sm:'../assets/bread-process-720.mp4',lg:'../assets/bread-process-1080.mp4'}
   }
 };
-const IMG={hero:"img/hero.webp",crust:"img/crust.webp",ital_w:"img/ital_w.webp",ital_c:"img/ital_c.webp",ital_s:"img/ital_s.webp",kar_s:"img/kar_s.webp",tp_w:"img/tp_w.webp",tp_s:"img/tp_s.webp",tr_s:"img/tr_s.webp",tr_l:"img/tr_l.webp",oat:"img/oat.webp",fruit:"img/fruit.webp",psh:"img/psh.webp",der:"img/der.webp",rzh:"img/rzh.webp",bor:"img/bor.webp",home:"img/home.webp"};
+const IMG={hero:"img/hero.webp",crust:"img/crust.webp",ital_w:"img/ital_w.webp",ital_c:"img/ital_c.webp",ital_s:"img/ital_s.webp",kar_s:"img/kar_s.webp",tp_w:"img/tp_w.webp",tp_s:"img/tp_s.webp",tr_s:"img/tr_s.webp",tr_l:"img/tr_l.webp",oat:"img/oat.webp",fruit:"img/fruit.webp",psh:"img/psh.webp",der:"img/der.webp",der_w:"img/der_w.webp",der_s:"img/der_s.webp",der_l:"img/der_l.webp",rzh:"img/rzh.webp",bor:"img/bor.webp",bor_w:"img/bor_w.webp",bor_s:"img/bor_s.webp",bor_l:"img/bor_l.webp",home:"img/home.webp"};
 const BREADS=[
  {id:'italian',name:'хлеб Итальянский домашний на закваске МЪ ПЕКАРНЯ бум.пак. 900г',w:'900 г',h:24,k:500,g:'long',use:['dinner','cheese'],
   d:'Три вида муки, хрустящая корочка и пористый мякиш.',p:['оливковое масло','томаты','моцарелла'],
@@ -28,11 +28,11 @@ const BREADS=[
  {id:'fruit',name:'хлеб бездрожжевой с изюмом и черносливом МЪ ПЕКАРНЯ в уп.бум.пак 500г',w:'500 г',h:24,k:500,g:'long',use:['tea','cheese'],
   d:'Чуть влажный мякиш, солодовый аромат, изюм, чернослив и курага.',sp:'Без добавления хлебопекарных дрожжей',p:['чай','кофе','выдержанный сыр'],v:[['fruit','В разрезе']],url:''},
  {id:'borodinsky',name:'хлеб Бородинский формовой МЪ ПЕКАРНЯ в уп.бум.пак. 400г',w:'400 г',h:null,k:250,g:'classic',form:true,use:['dinner'],
-  d:'Ржаная мука, солод и кориандр. Узнаваемый слегка сладковатый вкус и тёмный мякиш.',p:[],v:[['bor','Целиком']],url:'/catalog/product/khleb-borodinskiy-myasnov-pekarnya-90012324'},
+  d:'Ржаная мука, солод и кориандр. Узнаваемый слегка сладковатый вкус и тёмный мякиш.',p:[],v:[['bor_w','Целиком'],['bor_s','В разрезе'],['bor_l','Ломтики']],url:'/catalog/product/khleb-borodinskiy-myasnov-pekarnya-90012324'},
  {id:'rye',name:'хлеб ржаной формовой МЪ ПЕКАРНЯ в уп.бум.пак. 800г',w:'800 г',h:null,k:250,g:'classic',form:true,use:['dinner'],
   d:'Плотный мякиш и выраженная кислинка.',p:['горячие блюда','солёная рыба','сливочное масло'],v:[['rzh','Целиком']],url:'/catalog/product/khleb-rzhanoy-gost-800g-90012374'},
  {id:'village',name:'хлеб Деревенский МЪ ПЕКАРНЯ в уп.бум.пак. 600г',w:'600 г',h:null,k:500,g:'classic',use:['dinner'],
-  d:'Пшеничная и ржаная мука, солод и закваска. Ароматный хлеб к супу и домашнему обеду.',p:['суп','домашний обед'],v:[['der','Целиком']],url:'/catalog/product/khleb-derevenskiy-600g-90012335'},
+  d:'Пшеничная и ржаная мука, солод и закваска. Ароматный хлеб к супу и домашнему обеду.',p:['суп','домашний обед'],v:[['der_w','Целиком'],['der_s','В разрезе'],['der_l','Ломтики']],url:'/catalog/product/khleb-derevenskiy-600g-90012335'},
  {id:'wheat',name:'хлеб пшеничный МЪ ПЕКАРНЯ в уп.бум.пак. 500г',w:'500 г',h:null,k:500,g:'classic',use:['breakfast','dinner'],
   d:'Плотный ароматный мякиш и толстая корочка.',p:['ломоть с маслом','тост','бутерброд'],v:[['psh','Целиком']],url:'/catalog/product/khleb-pshenichnyy-500g-90012362'}
 ];
@@ -76,7 +76,8 @@ function metaHtml(b){return `<span>${SCALE14}${b.w}</span>`+(b.h?`<span>${CLOCK1
  const cardHtml=b=>`<article class="card" id="card-${b.id}" data-g="${b.g}" data-use="${b.use.join(' ')}" style="--vt:c-${b.id}">
   <div class="card-media">
    ${b.h?`<span class="badge">${CLOCK16}${b.h} ч</span>`:''}
-   <img src="${IMG[b.v[0][0]]}" alt="${b.name}" loading="lazy" decoding="async" width="900" height="900">
+   ${b.v.map(([k,label],i)=>`<img class="${i?'':'on'}" src="${IMG[k]}" alt="${i?'':b.name+' — '}${label.toLowerCase()}" loading="lazy" decoding="async" width="900" height="900">`).join('')}
+   ${b.v.length>1?`<div class="views" role="group" aria-label="Фото: ${b.name}">${b.v.map(([k,label],i)=>`<button type="button" aria-pressed="${!i}" aria-label="${label}"><span>${label}</span></button>`).join('')}</div>`:''}
   </div>
   <div class="card-body">
    <div class="meta">${metaHtml(b)}</div>
@@ -224,4 +225,18 @@ document.addEventListener('click',e=>{const a=e.target.closest('.card .order');i
  btns.forEach(b=>b.addEventListener('click',()=>{user=true;go(+b.dataset.h,2200);track('ripen',{h:+b.dataset.h})}));
  const demo=async()=>{for(const h of [16,18,24]){if(user)return;await go(h,h===16?4200:2600);await new Promise(r=>setTimeout(r,2200))}};
  if('IntersectionObserver' in window){const io=new IntersectionObserver(es=>{if(es[0].isIntersecting){io.disconnect();demo()}},{threshold:.45});io.observe(dial)}else go(24,1);
+})();
+
+/* ===== фото в карточке: несколько ракурсов, переключение точками (и наведением на компьютере) ===== */
+(function(){
+ function show(card,i){const imgs=$$('.card-media img',card),bs=$$('.views button',card);if(!imgs[i])return;
+  imgs.forEach((im,k)=>im.classList.toggle('on',k===i));bs.forEach((b,k)=>b.setAttribute('aria-pressed',String(k===i)))}
+ document.addEventListener('click',e=>{const b=e.target.closest('.views button');if(!b)return;e.preventDefault();
+  const card=b.closest('.card');show(card,$$('.views button',card).indexOf(b));track('card_view',{sku:card.id})});
+ if(matchMedia('(hover:hover)').matches){
+  document.addEventListener('mousemove',e=>{const m=e.target.closest('.card-media');if(!m)return;const n=$$('img',m).length;if(n<2)return;
+   const r=m.getBoundingClientRect();show(m.closest('.card'),Math.min(n-1,Math.floor((e.clientX-r.left)/r.width*n)))});
+  document.addEventListener('mouseleave',()=>{},true);
+  $$('.card-media').forEach(m=>m.addEventListener('mouseleave',()=>show(m.closest('.card'),0)));
+ }
 })();
