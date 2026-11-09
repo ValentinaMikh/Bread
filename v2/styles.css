@@ -337,6 +337,7 @@ ol,ul{padding:0;list-style:none}
   .lead{font-size:16px;line-height:24px}
   .eyebrow{font-size:15px;line-height:22px}
   .top-row{padding:0 var(--gutter);height:72px}
+  .top-cta{display:none}   /* на планшете кнопка не помещается рядом с логотипом */
   .brand-logo{width:150px}
   .hero{grid-template-columns:1fr;min-height:0}
   .hero-media{order:-1}
