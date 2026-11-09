@@ -35,32 +35,45 @@ const audioBase=new URL('assets/',document.currentScript.src);
 const piano=new Audio(new URL('bread-piano.mp3',audioBase));
 piano.preload='none';
 piano.loop=true;
-piano.volume=.35;
+piano.volume=0;
 
 const effect=new Audio();
 effect.preload='none';
-effect.volume=.65;
+effect.volume=0;
 
 const stages=[
   {tracks:['bread-starter.mp3','bread-bubbles.mp3'],label:'Закваска и пузырьки'},
   {tracks:['bread-dough.mp3'],label:'Раскатывание теста'},
   {tracks:['bread-crust.mp3'],label:'Потрескивание корочки'}
 ];
-let curTab=0,trackIndex=0,soundOn=false,pillTimer;
+let curTab=0,trackIndex=0,pillTimer;
+let visible=false,muted=false,blocked=false,playing=false,volume=0,fadeFrame;
 const pill=$('.now-pill'),pillT=$('span',pill),soundBtn=$('.sound');
+
+function updateButton(){
+  const active=playing&&!blocked;
+  soundBtn.setAttribute('aria-pressed',String(active));
+  soundBtn.setAttribute('aria-label',active?'Выключить звуки':'Включить звуки');
+}
 
 function play(audio){
   audio.play().catch(error=>{
-    if(error.name!=='AbortError')console.warn('Не удалось воспроизвести звук пекарни',error);
+    if(error.name==='NotAllowedError'&&playing){
+      blocked=true;
+      syncPlayback();
+    }else if(error.name!=='AbortError'&&error.name!=='NotAllowedError'){
+      console.warn('Не удалось воспроизвести звук пекарни',error);
+    }
   });
 }
 
 function selectEffect(){
   effect.src=new URL(stages[curTab].tracks[trackIndex],audioBase);
-  if(soundOn&&!document.hidden)play(effect);
+  if(playing)play(effect);
 }
 
 effect.addEventListener('ended',()=>{
+  if(!playing)return;
   trackIndex=(trackIndex+1)%stages[curTab].tracks.length;
   selectEffect();
 });
@@ -68,30 +81,65 @@ effect.addEventListener('ended',()=>{
 function applySection(){
   trackIndex=0;
   selectEffect();
-  if(!soundOn)return;
+  if(!playing)return;
   pillT.textContent=stages[curTab].label;
   pill.classList.add('show');
   clearTimeout(pillTimer);
   pillTimer=setTimeout(()=>pill.classList.remove('show'),3200);
 }
 
-function syncPlayback(){
-  if(soundOn&&!document.hidden){
-    play(piano);
-    if(effect.paused)play(effect);
-  }else{
-    piano.pause();
-    effect.pause();
+function fadeTo(target,immediate){
+  cancelAnimationFrame(fadeFrame);
+  const from=volume,start=performance.now();
+  function step(now){
+    const progress=immediate||from===target?1:Math.min(1,(now-start)/650);
+    volume=from+(target-from)*progress;
+    piano.volume=.35*volume;
+    effect.volume=.65*volume;
+    if(progress<1)fadeFrame=requestAnimationFrame(step);
+    else if(target===0){
+      piano.pause();
+      effect.pause();
+    }
   }
+  step(start);
 }
 
-soundBtn.addEventListener('click',()=>{
-  soundOn=!soundOn;
-  soundBtn.setAttribute('aria-pressed',String(soundOn));
-  soundBtn.setAttribute('aria-label',soundOn?'Выключить звуки':'Включить звуки');
-  if(soundOn)applySection();
-  else pill.classList.remove('show');
+function syncPlayback(){
+  const shouldPlay=visible&&!muted&&!blocked&&!document.hidden;
+  if(shouldPlay!==playing){
+    playing=shouldPlay;
+    if(playing){
+      play(piano);
+      play(effect);
+    }else{
+      pill.classList.remove('show');
+    }
+    fadeTo(playing?1:0,document.hidden||blocked);
+  }else if(document.hidden){
+    fadeTo(0,true);
+  }
+  updateButton();
+}
+
+applySection();
+new IntersectionObserver(([entry])=>{
+  visible=entry.isIntersecting;
+  if(!visible)blocked=false;
   syncPlayback();
+},{rootMargin:'-10% 0px'}).observe(root);
+
+soundBtn.addEventListener('click',()=>{
+  muted=playing;
+  blocked=false;
+  if(!muted)visible=true;
+  syncPlayback();
+});
+document.addEventListener('click',event=>{
+  if(blocked&&visible&&!soundBtn.contains(event.target)){
+    blocked=false;
+    syncPlayback();
+  }
 });
 document.addEventListener('visibilitychange',syncPlayback);
 

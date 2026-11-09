@@ -7,7 +7,7 @@ const CONFIG={
   ymId:null,            // ID счётчика Яндекс Метрики — цели landing_bread_*
     cutoffHour:15, tz:'Europe/Moscow',
   // Видео из макета: положите файлы в v2/video/ и впишите пути. Пока пусто — показывается кадр-заставка.
-  video:{hero:'',film:''}
+  video:{hero:'../assets/bread-hero.mp4',film:'../assets/bread-process.mp4'}
 };
 const IMG={hero:"img/hero.webp",crust:"img/crust.webp",ital_w:"img/ital_w.webp",ital_c:"img/ital_c.webp",ital_s:"img/ital_s.webp",kar_s:"img/kar_s.webp",tp_w:"img/tp_w.webp",tp_s:"img/tp_s.webp",tr_s:"img/tr_s.webp",tr_l:"img/tr_l.webp",oat:"img/oat.webp",fruit:"img/fruit.webp",psh:"img/psh.webp",der:"img/der.webp",rzh:"img/rzh.webp",bor:"img/bor.webp",home:"img/home.webp"};
 const BREADS=[
@@ -107,8 +107,46 @@ document.addEventListener('click',e=>{const a=e.target.closest('.card .order');i
  upd();setInterval(upd,15000)})();
 
 /* ===== видео: первый экран и «Как рождается наш хлеб» ===== */
-(function(){$$('video[data-video]').forEach(v=>{const src=CONFIG.video&&CONFIG.video[v.dataset.video];if(!src)return;
- const s=document.createElement('source');s.src=src;s.type=src.endsWith('.webm')?'video/webm':'video/mp4';v.append(s);
- v.addEventListener('playing',()=>{const f=v.closest('.film');if(f)f.classList.add('has-video')},{once:true});
- if(reduceMotion.matches){v.preload='metadata';return}
- const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){v.load();v.play().catch(()=>{});io.disconnect()}}),{rootMargin:'200px'});io.observe(v)})})();
+(function(){$$('video[data-video]').forEach(v=>{
+ const src=CONFIG.video[v.dataset.video];
+ if(!src)return;
+ const source=document.createElement('source');
+ source.src=src;
+ source.type=src.endsWith('.webm')?'video/webm':'video/mp4';
+ v.append(source);
+
+ const film=v.closest('.film');
+ const button=film&&$('.play',film);
+ let observer;
+ if(button){
+  const icon=$('path',button);
+  const playIcon=icon.getAttribute('d');
+  function updateButton(){
+   button.setAttribute('aria-label',v.paused?'Воспроизвести видео о хлебе':'Приостановить видео о хлебе');
+   icon.setAttribute('d',v.paused?playIcon:'M3 2h5v21H3z M13 2h5v21h-5z');
+  }
+  button.disabled=false;
+  updateButton();
+  v.addEventListener('playing',()=>{
+   film.classList.add('has-video');
+   updateButton();
+  });
+  v.addEventListener('pause',updateButton);
+  button.addEventListener('click',()=>{
+   observer?.disconnect();
+   if(v.paused)v.play().catch(updateButton);
+   else v.pause();
+  });
+ }
+ if(reduceMotion.matches){
+  v.preload='metadata';
+  return;
+ }
+ observer=new IntersectionObserver(entries=>{
+  if(!entries.some(entry=>entry.isIntersecting))return;
+  observer.disconnect();
+  v.load();
+  v.play().catch(()=>{});
+ },{rootMargin:'200px'});
+ observer.observe(v);
+})})();

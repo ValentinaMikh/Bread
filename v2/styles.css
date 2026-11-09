@@ -46,8 +46,8 @@ ol,ul{padding:0;list-style:none}
 .eyebrow--orange{color:var(--orange)}
 .eyebrow--light{color:var(--beige)}
 .h-xl{font:700 64px/1 var(--sans);letter-spacing:-.025em;color:var(--ink)}
-.script{font-family:var(--script);font-weight:400;font-style:normal;color:var(--orange);font-size:70px;line-height:62.7px;letter-spacing:-.025em}
-.h-xl .script{font-size:1.09375em;line-height:0}  /* 70 px при заголовке 64 px */
+.script,.pv2 .process-head h2 em{font-family:var(--script);font-weight:400;font-style:normal;color:var(--orange);font-size:70px;line-height:62.7px;letter-spacing:-.025em}
+.h-xl .script,.pv2 .process-head h2 em{font-size:1.09375em;line-height:0}  /* 70 px при заголовке 64 px */
 .lead{font-size:18px;line-height:27px;color:var(--muted)}
 .lead--ink{color:var(--ink)}
 .lead p+p{margin-top:27px}
@@ -107,7 +107,6 @@ ol,ul{padding:0;list-style:none}
 .pv2 .eyebrow{font:500 18px/27px var(--sans);letter-spacing:0;color:var(--orange)}
 .pv2 .process-head{grid-template-columns:760px 1fr;gap:60px;margin:40px 0}
 .pv2 .process-head h2{font:700 64px/1 var(--sans);letter-spacing:-.025em;color:var(--ink)}
-.pv2 .process-head h2 em{font-family:var(--script);font-style:normal;font-size:70px;line-height:0;letter-spacing:-.025em;color:var(--orange)}
 .pv2 .process-head p{font-size:18px;line-height:27px;color:var(--muted)}
 .pv2 .tab-no{font:500 18px/27px var(--sans);letter-spacing:0;color:var(--muted)}
 .pv2 .tab[aria-selected=true] .tab-no{color:var(--orange)}
@@ -342,7 +341,6 @@ ol,ul{padding:0;list-style:none}
   .foot-row{flex-direction:column;align-items:flex-start;gap:24px}
   .pv2 .wrap{padding:80px var(--gutter)}
   .pv2 .process-head h2{font-size:44px}
-  .pv2 .process-head h2 em{font-size:50px}
   .pv2 .process-head{grid-template-columns:1fr;gap:20px}
   .pv2 .tab-title{font-size:30px}
   .pv2 .stage{grid-template-columns:1fr;gap:28px;padding:32px}
@@ -381,7 +379,6 @@ ol,ul{padding:0;list-style:none}
   .artisan-list{grid-template-columns:1fr}
   .artisan-list li{padding:24px}
   .pv2 .process-head h2{font-size:34px}
-  .pv2 .process-head h2 em{font-size:40px}
   .pv2 .wrap{padding:56px var(--gutter)}
   .pv2 .stage{padding:16px;border-radius:20px}
   .pv2 .scene{border-radius:16px}
