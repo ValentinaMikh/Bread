@@ -473,28 +473,29 @@ body{padding-top:var(--header-height)}
 .section-10 [data-node-id="28:2562"] div,
 .section-10 [data-node-id="28:2562"] a{overflow:visible;clip-path:none}
 
-/* Figma Header 55:4484: cream frame, 94px, dashed lower edge. */
-:root{--header-height:94px}
-.site-header{background:#faf6ed;border:0;backdrop-filter:none;height:calc(var(--header-height) - 7.5px)}
-.site-header::after{content:"";position:absolute;left:0;right:0;bottom:-7.5px;height:15px;background:radial-gradient(circle at 8.5px 7.5px,#faf6ed 8.5px,transparent 9px) left top/27px 15px repeat-x;pointer-events:none}
-.site-header-inner{max-width:1440px;padding:0 82px}
+/* Figma Header 55:4484: 64px side padding, 10px vertical padding around the 75px logo,
+   centred brand and a 15px scalloped lower edge in the header colour. */
+:root{--header-height:95px}
+body{padding-top:var(--header-height)}
+.site-header{height:var(--header-height);background:#faf6ed;border:0;backdrop-filter:none;overflow:visible}
 .site-header.is-scrolled{box-shadow:0 5px 18px #270b0a0a}
-@media(max-width:1023px){:root{--header-height:72px}.site-header-inner{padding:0 24px}.site-navigation{top:calc(100% + 7.5px);max-height:calc(100svh - 72px)}}
-body{padding-top:calc(var(--header-height) - 7.5px)}
-
-/* Updated Figma header contents: back, centered brand, preorder action. */
-.figma-header .site-header-inner{max-width:1620px;padding:10px 64px;display:grid;grid-template-columns:273px 260px 273px;justify-content:space-between;gap:0}
-.header-back{display:flex;align-items:center;width:32px;height:32px}
-.header-logo{position:relative;width:260px;height:75px;display:block}
-.header-logo-image{display:block;width:100%;height:100%}
-.header-order{display:flex;align-items:center;justify-content:center;gap:8px;width:273px;height:50px;border-radius:8px;background:#eadbc8;color:#270b0a;font:16px/1.4 Ubuntu,Arial,sans-serif;white-space:nowrap;transition:background .2s}
+.site-header::after{content:"";position:absolute;left:0;right:0;bottom:-15px;height:15px;background:radial-gradient(circle at 50% 0,#faf6ed 8.5px,transparent 9px) left top/27px 15px round no-repeat;pointer-events:none}
+.figma-header .site-header-inner{max-width:none;height:100%;padding:10px 64px;display:grid;grid-template-columns:minmax(0,1fr) 260px minmax(0,1fr);align-items:center;gap:0}
+.header-back{justify-self:start;display:flex;align-items:center;justify-content:center;width:32px;height:32px;color:#270b0a}
+.header-logo{justify-self:center;display:block;width:260px;height:75px}
+.header-logo-image{display:block;width:100%;height:auto}
+.header-order{justify-self:end;display:flex;align-items:center;justify-content:center;gap:8px;width:273px;height:50px;padding:0 24px;border-radius:8px;background:#eadbc8;color:#270b0a;font:400 16px/1.4 Ubuntu,Arial,sans-serif;white-space:nowrap;transition:background .2s}
 .header-order:hover{background:#dfcbb2}
-@media(max-width:1023px){.figma-header .site-header-inner{padding:0 24px;grid-template-columns:40px 260px 273px;gap:16px}.header-logo{justify-self:center}}
-@media(max-width:680px){.figma-header .site-header-inner{padding:0 16px;grid-template-columns:32px minmax(0,1fr) 40px;gap:12px}.header-logo{scale:.65;width:260px;flex-shrink:0}.header-order{width:40px;height:40px;font-size:0;gap:0}.header-order img{width:20px;height:20px}.header-back{width:32px}}
-
-/* Distribute complete scallops across the header, including both edges. */
-.site-header{overflow:visible}
-.site-header::after{background:radial-gradient(circle at 50% 0,#faf6ed 8.5px,transparent 9px) left top/27px 15px round no-repeat;bottom:-15px;height:15px}
+.header-order img{flex-shrink:0;width:20px;height:20px}
+.header-back:focus-visible,.header-logo:focus-visible,.header-order:focus-visible{outline:2px solid #80ba27;outline-offset:4px;border-radius:8px}
+@media(max-width:1023px){.figma-header .site-header-inner{padding:10px 24px}}
+@media(max-width:879px){
+ :root{--header-height:64px}
+ .figma-header .site-header-inner{padding:0 16px;grid-template-columns:40px minmax(0,1fr) 40px;gap:12px}
+ .header-back{width:40px;height:40px}
+ .header-logo{width:169px;height:49px}
+ .header-order{width:40px;height:40px;padding:0;font-size:0;gap:0}
+}
 
 .back-to-top{position:fixed;right:24px;bottom:88px;z-index:90;width:48px;height:48px;display:flex;align-items:center;justify-content:center;border:1px solid #78695726;border-radius:50%;background:#faf6ed;box-shadow:0 4px 18px #270b0a14;opacity:0;visibility:hidden;translate:0 10px;pointer-events:none;transition:opacity .25s,translate .25s,visibility .25s,background .2s}
 .back-to-top img{rotate:90deg}
