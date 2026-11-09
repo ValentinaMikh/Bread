@@ -109,13 +109,12 @@ ol,ul{padding:0;list-style:none}
 .pv2 h2.baked{font:700 64px/1 var(--sans);letter-spacing:-.025em}
 .pv2 h2.baked em{font-family:var(--script);font-style:normal;font-size:70px;line-height:0;letter-spacing:-.025em;color:var(--orange)}
 .pv2 .process-head p{font-size:18px;line-height:27px;color:var(--muted)}
-.pv2 .tab-no{font:500 18px/27px var(--sans);letter-spacing:0;color:var(--orange)}
+.pv2 .tab-no{font:500 18px/27px var(--sans);letter-spacing:0;color:var(--muted)}
 .pv2 .tab[aria-selected=true] .tab-no{color:var(--orange)}
-.pv2 .tab-no svg{color:var(--muted)}
-.pv2 .tab::before{background:var(--paper)}                 /* в макете индикатор совпадает с фоном */
+.pv2 .tab::before{background:var(--orange)}
 .pv2 .tab-title{font:700 40px/1 var(--sans);letter-spacing:-.025em;color:var(--ink);margin:16px 0 10px}
 .pv2 .tab-copy{color:var(--muted)}
-.pv2 .tab[aria-selected=true] .tab-copy{color:var(--ink)}
+.pv2 .tab[aria-selected=true] .tab-copy{color:var(--muted)}
 .pv2 .stage{margin-top:64px;background:transparent;border-radius:0;padding:0;gap:72px}
 .pv2 .panel-label{font:500 18px/27px var(--sans);letter-spacing:0;color:var(--orange)}
 .pv2 .panels h3{font:700 40px/1 var(--sans);letter-spacing:-.025em}
@@ -126,6 +125,7 @@ ol,ul{padding:0;list-style:none}
 .pv2 .bar-fill::after{box-shadow:0 0 0 4px #fac985}
 .pv2 .process-foot{margin-top:64px}
 .pv2 .sound{font-family:var(--sans)}
+.pv2 .eq i:nth-child(2){height:13px}.pv2 .eq i:nth-child(3){height:9px}   /* эквалайзер в покое — как в макете */
 
 /* 04 · Как рождается наш хлеб */
 .film,.sleep{position:relative;overflow:hidden;background:#472b1a;color:var(--paper)}
