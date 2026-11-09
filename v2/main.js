@@ -12,7 +12,7 @@ const CONFIG={
     film:{sm:'../assets/bread-process-720.mp4',lg:'../assets/bread-process-1080.mp4'}
   }
 };
-const IMG={hero:"img/hero.webp",crust:"img/crust.webp",ital_w:"img/ital_w.webp",ital_c:"img/ital_c.webp",ital_s:"img/ital_s.webp",kar_s:"img/kar_s.webp",tp_w:"img/tp_w.webp",tp_s:"img/tp_s.webp",tr_s:"img/tr_s.webp",tr_l:"img/tr_l.webp",oat:"img/oat.webp",fruit:"img/fruit.webp",psh:"img/psh.webp",der:"img/der.webp",der_w:"img/der_w.webp",der_s:"img/der_s.webp",der_l:"img/der_l.webp",rzh:"img/rzh.webp",bor:"img/bor.webp",mbs:"img/mini_baguette_cheese.webp",bor_w:"img/bor_w.webp",bor_s:"img/bor_s.webp",bor_l:"img/bor_l.webp",home:"img/home.webp"};
+const IMG={hero:"img/hero.webp",crust:"img/crust.webp",ital_w:"img/ital_w.webp",ital_c:"img/ital_c.webp",ital_s:"img/ital_s.webp",kar_s:"img/kar_s.webp",tp_w:"img/tp_w.webp",tp_s:"img/tp_s.webp",tr_s:"img/tr_s.webp",tr_l:"img/tr_l.webp",oat:"img/oat.webp",fruit:"img/fruit.webp",psh:"img/psh.webp",der:"img/der.webp",der_w:"img/der_w.webp",der_s:"img/der_s.webp",der_l:"img/der_l.webp",rzh:"img/rzh.webp",bor:"img/bor.webp",mbs:"img/mini_baguette_cheese.webp",cia:"img/ciabatta.webp",bgr:"img/baguette_rye.webp",bgf:"img/baguette_fr.webp",bor_w:"img/bor_w.webp",bor_s:"img/bor_s.webp",bor_l:"img/bor_l.webp",home:"img/home.webp"};
 const BREADS=[
  {id:'italian',name:'хлеб Итальянский домашний на закваске МЪ ПЕКАРНЯ бум.пак. 900г',w:'900 г',h:24,k:500,g:'long',use:['dinner','cheese'],
   d:'Три вида муки, хрустящая корочка и пористый мякиш.',p:['оливковое масло','томаты','моцарелла'],
@@ -212,8 +212,8 @@ const LOAF_PH='<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 30c0-9 7-
 const RIPEN={
  16:{items:[{id:'karelian',name:'Тартин Карельский солодовый',img:'hero'},{id:'oat',name:'Тартин Овсяный',img:'oat'}],
      note:'Холодная ферментация в&nbsp;климат-камерах при температуре от&nbsp;0 до&nbsp;+5&nbsp;°C, дальше расстойка и&nbsp;печь.'},
- 18:{items:[{id:'tartin-wheat',name:'Тартины с&nbsp;пророщенным зерном',img:'tp_w'},{name:'Багет ржаной'},{name:'Мини-багет с&nbsp;сыром',img:'mbs'}]},
- 24:{items:[{id:'italian',name:'Итальянский домашний',img:'ital_w'},{id:'fruit',name:'С&nbsp;изюмом и&nbsp;черносливом',img:'fruit'},{name:'Французский багет'},{name:'Чиабатта'}]}
+ 18:{items:[{id:'tartin-wheat',name:'Тартины с&nbsp;пророщенным зерном',img:'tp_w'},{name:'Багет ржаной',img:'bgr'},{name:'Мини-багет с&nbsp;сыром',img:'mbs'}]},
+ 24:{items:[{id:'italian',name:'Итальянский домашний',img:'ital_w'},{id:'fruit',name:'С&nbsp;изюмом и&nbsp;черносливом',img:'fruit'},{name:'Французский багет',img:'bgf'},{name:'Чиабатта',img:'cia'}]}
 };
 function ripenItems(h){const r=RIPEN[h];if(!r)return'';
  const card=it=>{const b=it.id&&BREADS.find(x=>x.id===it.id);const href=b?breadUrl(b):withUtm(CONFIG.catalogUrl,'ripen');
