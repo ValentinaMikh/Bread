@@ -71,7 +71,7 @@
 .pv2 .scene svg{display:block;width:100%;height:auto;overflow:hidden}
 .pv2 .scene g[id^=g]{transition:none}
 .pv2 .rail{display:flex;gap:8px;margin-top:18px}
-.pv2 .rail button{position:relative;flex:1 1 0;min-width:0;text-align:left;padding:12px 8px 0 0;border-top:2px solid var(--pv-rule);font:500 12px/1.35 Ubuntu,Arial,sans-serif;letter-spacing:.04em;text-transform:uppercase;color:var(--pv-text);transition:color .3s}
+.pv2 .rail button{position:relative;border-radius:0;flex:1 1 0;min-width:0;text-align:left;padding:12px 8px 0 0;border-top:2px solid var(--pv-rule);font:500 12px/1.35 Ubuntu,Arial,sans-serif;letter-spacing:.04em;text-transform:uppercase;color:var(--pv-text);transition:color .3s}
 .pv2 .rail button i{position:absolute;left:0;right:0;top:-2px;height:2px;background:var(--pv-green);transform-origin:0;transform:scaleX(0)}
 .pv2 .rail button span{color:var(--pv-green);margin-right:6px}
 .pv2 .rail button.on,.pv2 .rail button:hover{color:var(--pv-ink)}
