@@ -359,16 +359,14 @@
 </section>
 
 <!-- 05 · Рассмотрите. Потом попробуйте -->
-<section class="sec sec--paper" id="look" aria-labelledby="h-look">
-  <div class="wrap">
-    <button class="look-photo reveal" type="button" id="lookBtn" aria-haspopup="dialog" aria-controls="lookDialog">
-      <img src="img/f-look.webp" width="411" height="450" alt="Тартин Карельский целиком — нажмите, чтобы рассмотреть ближе" loading="lazy" decoding="async">
-    </button>
-    <div class="look-row reveal">
-      <h2 id="h-look" class="h-xl"><em class="script">Рассмотрите.</em> <br>Потом попробуйте</h2>
-      <p class="lead">Солод, грецкий орех и&nbsp;клюква. <br>Нажмите на&nbsp;фотографию — покажем ближе.</p>
-    </div>
+<section class="look" id="look" aria-labelledby="h-look">
+  <div class="wrap look-copy reveal">
+    <h2 id="h-look" class="h-xl"><em class="script">Рассмотрите.</em> <br>Потом попробуйте</h2>
+    <p class="lead">Солод, грецкий орех и&nbsp;клюква. <br>Нажмите на&nbsp;фотографию — покажем ближе.</p>
   </div>
+  <button class="look-photo" type="button" id="lookBtn" aria-haspopup="dialog" aria-controls="lookDialog">
+    <img src="img/f-look-wide.webp" width="760" height="450" alt="Тартин Карельский в разломе: солод, орех и клюква — нажмите, чтобы рассмотреть ближе" loading="lazy" decoding="async">
+  </button>
   <dialog class="look-dialog" id="lookDialog" aria-label="Тартин Карельский ближе">
     <form method="dialog"><button class="icon-btn look-close" aria-label="Закрыть">×</button></form>
     <div class="look-shots">
