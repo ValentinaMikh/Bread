@@ -101,7 +101,7 @@ document.addEventListener('click',e=>{const a=e.target.closest('.card .order');i
  function upd(){const s=msk(),cut=CONFIG.cutoffHour*3600;
   if(s<cut){const left=cut-s,h=Math.floor(left/3600),m=Math.floor(left%3600/60);box.classList.remove('late');
    st.textContent='Принимаем заказы на завтра';big.innerHTML=`${h}<small>${word(h,'час','часа','часов')}</small>${m}<small>мин</small>`;
-   sub.innerHTML='Осталось до 15:00 по Москве — успейте оформить, и&nbsp;свежий хлеб будет у&nbsp;вас завтра утром.'}
+   sub.innerHTML='Успейте оформить заказ на&nbsp;завтра до&nbsp;15:00.'}
   else{box.classList.add('late');st.textContent='Предзаказ из пекарни';big.textContent='До 15:00';
    sub.textContent='Выберите доступную дату и время получения на сайте или в приложении КуулКлевер.'}}
  upd();setInterval(upd,15000)})();
