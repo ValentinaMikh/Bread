@@ -162,7 +162,7 @@ for (const id of ["28:2051", "28:2405", "28:2625", "28:2146", "28:2269", "28:334
  const bakery=document.querySelector('.section-13'),principles=byNode('28:783');
  const items=['28:784','28:787','28:790'].map(byNode);
  const widget=document.createElement('aside');widget.className='dev-widget';widget.setAttribute('aria-label','Dev Mod — варианты блоков');
- widget.innerHTML=`<button class="dev-toggle" type="button" aria-expanded="false" aria-controls="dev-panel"><span aria-hidden="true">◈</span> Dev Mod</button><div class="dev-panel" id="dev-panel" hidden><div class="dev-panel-header"><strong>Варианты блоков</strong><button class="dev-close" type="button" aria-label="Закрыть Dev Mod">×</button></div><label for="bakery-variant">Своя ремесленная пекарня</label><select id="bakery-variant"><option value="original">01 — Исходный макет</option><option value="production">02 — Линия производства</option><option value="photo">03 — Фотография с привязкой к тексту</option></select><p class="dev-description"></p><label for="process-variant">Как рождается хлеб</label><select id="process-variant"><option value="steps">01 — Шаги с фото</option><option value="illustrated">02 — Иллюстрированный процесс</option></select><p class="dev-description dev-process-description"></p></div>`;
+ widget.innerHTML=`<button class="dev-toggle" type="button" aria-expanded="false" aria-controls="dev-panel"><span aria-hidden="true">◈</span> Dev Mod</button><div class="dev-panel" id="dev-panel" hidden><div class="dev-panel-header"><strong>Варианты блоков</strong><button class="dev-close" type="button" aria-label="Закрыть Dev Mod">×</button></div><label for="bakery-variant">Своя ремесленная пекарня</label><select id="bakery-variant"><option value="original">01 — Исходный макет</option><option value="production">02 — Линия производства</option><option value="photo">03 — Фотография с привязкой к тексту</option></select><p class="dev-description"></p><label for="process-variant">Пока хлеб созревает</label><select id="process-variant"><option value="original">01 — Исходный макет</option><option value="illustrated">02 — Иллюстрированный процесс</option></select><p class="dev-description dev-process-description"></p></div>`;
  document.body.append(widget);
  const toggle=widget.querySelector('.dev-toggle'),panel=widget.querySelector('.dev-panel'),select=widget.querySelector('#bakery-variant');
  const close=()=>{panel.hidden=true;toggle.setAttribute('aria-expanded','false');};
@@ -213,16 +213,16 @@ for (const id of ["28:2051", "28:2405", "28:2625", "28:2146", "28:2269", "28:334
  select.onchange=()=>apply(select.value);
  let saved='production';try{saved=localStorage.getItem('bakery-variant')||'production';}catch{}
  apply(['original','production','photo'].includes(saved)?saved:'production');
- // «Как рождается хлеб»: 01 — закреплённые шаги с фото, 02 — иллюстрированный процесс со звуком.
- const processSelect=widget.querySelector('#process-variant'),processStory=document.querySelector('.process-story'),processIllustrated=document.getElementById('process-illustrated');
+ // «Пока хлеб созревает»: 01 — исходная секция макета, 02 — иллюстрированный процесс со звуком на её месте.
+ const processSelect=widget.querySelector('#process-variant'),ripeningOriginal=document.querySelector('.section-2'),processIllustrated=document.getElementById('process-illustrated');
  const applyProcess=value=>{
-  processSelect.value=value;processStory.hidden=value!=='steps';processIllustrated.hidden=value!=='illustrated';
-  widget.querySelector('.dev-process-description').textContent=value==='illustrated'?'Три этапа с анимированной сценой, шкалами созревания и звуком.':'Блок закрепляется, колёсико переключает шаги.';
-  try{localStorage.setItem('process-variant',value);}catch{}
+  processSelect.value=value;ripeningOriginal.hidden=value!=='original';processIllustrated.hidden=value!=='illustrated';
+  widget.querySelector('.dev-process-description').textContent=value==='illustrated'?'Три этапа с анимированной сценой, шкалами созревания и звуком.':'Исходная секция из макета Figma с карточкой «Сколько созревает тесто».';
+  try{localStorage.setItem('ripening-variant',value);}catch{}
  };
  processSelect.onchange=()=>applyProcess(processSelect.value);
- let savedProcess='illustrated';try{savedProcess=localStorage.getItem('process-variant')||'illustrated';}catch{}
- applyProcess(['steps','illustrated'].includes(savedProcess)?savedProcess:'illustrated');
+ let savedProcess='illustrated';try{savedProcess=localStorage.getItem('ripening-variant')||'illustrated';}catch{}
+ applyProcess(['original','illustrated'].includes(savedProcess)?savedProcess:'illustrated');
  window.addEventListener('scroll',requestUpdate,{passive:true});window.addEventListener('resize',requestUpdate,{passive:true});new ResizeObserver(requestUpdate).observe(principles);
 }
 // Small, interruptible motion for the dough maturation card.
