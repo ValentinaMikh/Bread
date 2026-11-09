@@ -318,7 +318,7 @@ for (const id of ["28:2051", "28:2405", "28:2625", "28:2146", "28:2269", "28:334
  const group=document.createElement('div');group.className='dev-variant-group';
  group.innerHTML='<label for="home-variant">Пусть дома пахнет хлебом</label><select id="home-variant"><option value="original">01 — Исходный макет</option><option value="showcase">02 — Небольшая витрина перед кнопками</option><option value="ribbon">03 — Бумажная лента с рукописной фразой</option></select><p class="dev-description">Три хлеба с названиями и переходами на страницы товаров.</p>';
  document.querySelector('.dev-panel').append(group);
- const showcase=document.createElement('nav');showcase.className='home-showcase';showcase.setAttribute('aria-label','Выберите буханку');
+ const showcase=document.createElement('nav');showcase.className='home-showcase';showcase.setAttribute('aria-label','Выберите целый хлеб');
  const products=[
   ['Итальянский домашний','showcase-italian.webp','khleb-italyanskiy-domashniy-na-zakvaske-900-g-90012344'],
   ['Чиабатта Итальянская','showcase-ciabatta.webp','chiabatta-italyanskaya-myasnov-pekarnya-90012522'],
