@@ -357,14 +357,12 @@ function choose(n,focus){
   tabs.forEach((b,i)=>{b.setAttribute('aria-selected',String(i===n));b.tabIndex=i===n?0:-1;panels[i].hidden=i!==n});
   if(focus)tabs[n].focus();
   curTab=n;SCN.select(n);
-  const h=$('h3',panels[n]);if(h)tween(h,0,1,1100);
   Sound.ui(['bubble','tick','fire'][n]);applySection();track('stage',{n});
 }
 tabs.forEach((b,i)=>{
   b.addEventListener('click',()=>choose(i));
   b.addEventListener('keydown',e=>{let n;if(e.key==='ArrowRight'||e.key==='ArrowDown')n=(i+1)%3;else if(e.key==='ArrowLeft'||e.key==='ArrowUp')n=(i+2)%3;else if(e.key==='Home')n=0;else if(e.key==='End')n=2;else return;e.preventDefault();choose(n,true)});
 });
-$$('.panels h3').forEach(h=>setBake(h,1));
 
 
 /* счётчик часов на шкалах созревания */

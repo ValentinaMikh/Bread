@@ -22,11 +22,11 @@
 .pv2 .eyebrow{font:500 16px/1.4 Ubuntu,Arial,sans-serif;letter-spacing:.04em;text-transform:uppercase;color:var(--pv-ink)}
 .pv2-top{display:flex;align-items:center;justify-content:space-between;gap:24px}
 
-/* «Пропекание» заголовков: из размытого светлого в чёткий тёмный (фильтры sa*/sb* из исходника). */
+/* «Пропекание» заголовка секции: из размытого светлого в чёткий тёмный (фильтры sa*/sb* из исходника). */
 .pv2 .baked{--bake:1;color:var(--pv-raw);color:color-mix(in srgb,var(--pv-raw) calc((1 - var(--bake))*100%),var(--pv-ink));line-height:1.12}
 .pv2 h2.baked{font:400 56px/1.12 'Playfair Display',Georgia,serif;letter-spacing:-1.4px}
 .pv2 h2.baked em{font-style:italic}
-.pv2 .panels h3.baked{font:400 40px/1.1 'Nexa Script',cursive;letter-spacing:-1px}
+.pv2 .panels h3{font:400 40px/1.1 'Nexa Script',cursive;letter-spacing:-1px}
 
 /* Звук */
 .pv2 .sound{display:inline-flex;align-items:center;gap:10px;height:44px;padding:0 18px;border-radius:8px;background:var(--pv-card);color:var(--pv-ink);font:400 15px/1 Ubuntu,Arial,sans-serif;transition:background .2s}
@@ -117,7 +117,7 @@
   .pv2 .tab-copy{display:none}.pv2 .tab-title{font-size:28px;margin:8px 0 0}.pv2 .tab-no{padding-right:0}
   .pv2 .mobile-stage-copy{display:block;padding-bottom:16px;border-bottom:1px solid var(--pv-rule)}
   .pv2 .stage{padding:16px}
-  .pv2 .panels h3.baked{font-size:32px}
+  .pv2 .panels h3{font-size:32px}
   .pv2 .rail{flex-wrap:wrap;row-gap:12px}
   .pv2 .rail button{flex:1 1 calc(50% - 8px)}
   .pv2 .timer-scale{padding-left:0}
