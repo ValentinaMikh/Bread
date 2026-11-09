@@ -289,7 +289,7 @@ ol,ul{padding:0;list-style:none}
 .how{display:flex;flex-direction:column;gap:16px;counter-reset:how}
 .how li{position:relative;min-height:28px;padding-left:44px;color:var(--muted);counter-increment:how}
 .how li::before{content:counter(how);position:absolute;left:0;top:0;width:28px;height:28px;border-radius:50%;background:var(--orange);color:var(--paper);font:500 16px/28px var(--sans);text-align:center}
-.clock.late .state{color:var(--orange)}
+.clock.late .state{color:#669D26}
 
 /* 08 · Маленькое удовольствие */
 .band{text-align:center}
