@@ -282,7 +282,7 @@ for (const id of ["28:2051", "28:2405", "28:2625", "28:2146", "28:2269", "28:334
  header.querySelectorAll('a[href^="#"]').forEach(link=>link.addEventListener('click',event=>{
   const target=targets[link.hash.slice(1)];if(!target)return;
   event.preventDefault();window.dispatchEvent(new Event('site:navigate'));
-  window.scrollTo({top:Math.max(0,target.getBoundingClientRect().top+scrollY-header.offsetHeight-7.5),behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
+  window.scrollTo({top:Math.max(0,target.getBoundingClientRect().top+scrollY-header.offsetHeight-15),behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
   history.replaceState(null,'',link.hash);
  }));
  const update=()=>header.classList.toggle('is-scrolled',scrollY>16);window.addEventListener('scroll',update,{passive:true});update();
