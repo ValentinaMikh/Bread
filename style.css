@@ -237,9 +237,10 @@
 .process-pin {min-height:0}
 .process-layout {padding-top:80px;padding-bottom:80px}
 
-/* No artificial scroll runway beneath the compact three-stage block. */
+/* Desktop: JS sets a short runway (two wheel notches) and the stage pins under the header. */
 .process-story {height:auto}
 .process-pin {position:relative;top:auto}
+.process-story.is-pinned .process-pin {position:sticky;top:var(--header-height)}
 /* Cover the hero's full height, including the former 4px gap at its base. */
 @media(min-width:1024px){
  [data-node-id="6:4610"] {height:calc(100% + 2px)}

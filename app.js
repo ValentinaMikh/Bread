@@ -86,7 +86,8 @@ for (const id of ["28:2051", "28:2405", "28:2625", "28:2146", "28:2269", "28:334
  };
  new ResizeObserver(draw).observe(paper);draw();
 }
-// Three process stages as tabs; the page scrolls normally past the block.
+// Three process stages: the block pins under the header and each mouse-wheel notch
+// switches one stage. Touch, keyboard and the scrollbar move through the same native runway.
 {
  const sections=[3,4,5].map(i=>document.querySelector(`.section-${i}`));
  const slides=['7:5482','28:3340','28:3357'].map(byNode);
@@ -112,18 +113,49 @@ for (const id of ["28:2051", "28:2405", "28:2625", "28:2146", "28:2269", "28:334
    const button=buttons[i];button.setAttribute('aria-selected',String(active));button.tabIndex=active?0:-1;});
   if(focus)buttons[current].focus();
  };
+ const header=document.querySelector('.site-header');
+ let start=0,distance=1;
+ const measure=()=>{
+  const pinned=matchMedia('(min-width:1024px)').matches;story.classList.toggle('is-pinned',pinned);
+  if(!pinned){story.style.height='';return;}
+  distance=Math.round(Math.max(240,innerHeight*.45));
+  story.style.height=(pin.offsetHeight+2*distance)+'px';
+  start=story.getBoundingClientRect().top+scrollY-(header?.offsetHeight||0);
+  sync();
+ };
+ const stepAt=y=>Math.min(2,Math.max(0,Math.round((y-start)/distance)));
+ const goTo=i=>scrollTo({top:start+i*distance,behavior:'instant'});
+ const sync=()=>{if(story.classList.contains('is-pinned'))setStep(stepAt(scrollY));};
+ let gestureUsed=false,gestureTimer=0,trackpadAmount=0,lastStep=0;
+ window.addEventListener('wheel',event=>{
+  if(!story.classList.contains('is-pinned')||event.ctrlKey||Math.abs(event.deltaX)>Math.abs(event.deltaY)||event.target.closest('.dev-panel'))return;
+  const direction=Math.sign(event.deltaY);if(!direction)return;
+  const y=scrollY,end=start+2*distance;
+  if(y<start-2||y>end+2)return;                       // block not pinned: normal page scroll
+  const from=stepAt(y),to=from+direction;
+  const notch=event.deltaMode!==0||Math.abs(event.deltaY)>=50;  // mouse wheel vs trackpad
+  clearTimeout(gestureTimer);gestureTimer=setTimeout(()=>{gestureUsed=false;trackpadAmount=0;},notch?0:220);
+  if(to<0||to>2){if(notch||!gestureUsed)return;event.preventDefault();return;} // leave the block
+  event.preventDefault();
+  if(notch){if(performance.now()-lastStep>60){goTo(to);lastStep=performance.now();}return;}
+  if(gestureUsed)return;
+  trackpadAmount+=Math.abs(event.deltaY);
+  if(trackpadAmount>=40){goTo(to);gestureUsed=true;trackpadAmount=0;}
+ },{passive:false});
+ window.addEventListener('scroll',sync,{passive:true});
+ window.addEventListener('resize',measure);
+ new ResizeObserver(measure).observe(pin);
  buttons.forEach((button,i)=>{
   button.setAttribute('role','tab');button.id='process-tab-'+(i+1);slides[i].id='process-panel-'+(i+1);
   button.setAttribute('aria-controls',slides[i].id);slides[i].setAttribute('role','tabpanel');slides[i].setAttribute('aria-labelledby',button.id);
-  button.addEventListener('click',()=>setStep(i));
+  button.addEventListener('click',()=>{setStep(i);if(story.classList.contains('is-pinned'))goTo(i);});
   button.addEventListener('keydown',event=>{
    const move={ArrowDown:1,ArrowRight:1,ArrowUp:-1,ArrowLeft:-1}[event.key];
-   if(move){event.preventDefault();setStep(current+move,true);}
-   else if(event.key==='Home'||event.key==='End'){event.preventDefault();setStep(event.key==='Home'?0:2,true);}
+   const next=move?(current+move+3)%3:event.key==='Home'?0:event.key==='End'?2:-1;
+   if(next<0)return;event.preventDefault();setStep(next,true);if(story.classList.contains('is-pinned'))goTo(next);
   });
  });
- setStep(0);
-
+ setStep(0);measure();
 }
 // Development view controls. Only the selected bakery variant changes.
 {
