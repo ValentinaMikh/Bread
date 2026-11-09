@@ -563,3 +563,4 @@ body{padding-top:var(--header-height)}
  .quiet-action,.quiet-action-arrow,.product-card,.quiet-product-image,.filter{transition:none!important}
  .section a.quiet-action:hover{transform:none}.quiet-action-arrow{translate:none!important}.quiet-product-image{scale:1!important}
 }
+.dev-panel .dev-description+label{margin-top:20px}
