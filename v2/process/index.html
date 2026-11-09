@@ -809,6 +809,9 @@ body{margin:0}
 #process.site .proc-sound[aria-pressed=true]{background:#E58E1A}
 #process.site .proc-sound .eq i{background:currentColor}
 html,body{background:#FAF6ED!important}
+/* левый край — как у остальных блоков лендинга: контейнер 1276 px + поля 24 px (16 px на телефоне) */
+#process.site .wrap{max-width:calc(1276px + 48px)!important;padding-left:24px!important;padding-right:24px!important;margin:0 auto}
+@media (max-width:640px){#process.site .wrap{padding-left:16px!important;padding-right:16px!important}}
 @media (min-width:901px){
   #process.site .wrap{grid-template-columns:minmax(360px,480px) minmax(0,1fr)}
   #process.site h2{font-size:clamp(44px,3.6vw,56px);margin:24px 0 32px}
