@@ -31,6 +31,20 @@ if(title){
 }
 
 
+let curTab=0;
+const soundBtn=$('.sound');
+// Если на странице есть общий звук сайта (window.breadSound, дизайн 02), блок отдаёт ему управление:
+// кнопка «Звук» включает музыку всего сайта, а этапы задают звук хлеба. Иначе — собственный звук блока, как раньше.
+const ext=window.breadSound;
+let applySection;
+if(ext){
+  const pill=$('.now-pill');if(pill)pill.remove();
+  const sync=on=>{soundBtn.setAttribute('aria-pressed',String(on));soundBtn.setAttribute('aria-label',on?'Выключить звуки':'Включить звуки')};
+  ext.onChange(sync);sync(ext.isOn());
+  soundBtn.addEventListener('click',()=>ext.toggle());
+  applySection=()=>ext.setStage(curTab);
+  new IntersectionObserver(([e])=>ext.setStageVisible(e.isIntersecting),{rootMargin:'-45% 0px -45% 0px'}).observe(root);
+}else{
 const audioBase=new URL('assets/',document.currentScript.src);
 const piano=new Audio(new URL('bread-piano.mp3',audioBase));
 piano.preload='none';
@@ -46,9 +60,9 @@ const stages=[
   {tracks:['bread-dough.mp3'],label:'Раскатывание теста'},
   {tracks:['bread-crust.mp3'],label:'Потрескивание корочки'}
 ];
-let curTab=0,trackIndex=0,pillTimer;
+let trackIndex=0,pillTimer;
 let visible=false,muted=false,blocked=false,playing=false,volume=0,fadeFrame;
-const pill=$('.now-pill'),pillT=$('span',pill),soundBtn=$('.sound');
+const pill=$('.now-pill'),pillT=$('span',pill);
 
 function updateButton(){
   const active=playing&&!blocked;
@@ -78,7 +92,7 @@ effect.addEventListener('ended',()=>{
   selectEffect();
 });
 
-function applySection(){
+applySection=function(){
   trackIndex=0;
   selectEffect();
   if(!playing)return;
@@ -86,7 +100,7 @@ function applySection(){
   pill.classList.add('show');
   clearTimeout(pillTimer);
   pillTimer=setTimeout(()=>pill.classList.remove('show'),3200);
-}
+};
 
 function fadeTo(target,immediate){
   cancelAnimationFrame(fadeFrame);
@@ -142,6 +156,8 @@ document.addEventListener('click',event=>{
   }
 });
 document.addEventListener('visibilitychange',syncPlayback);
+
+}
 
 /* ═══ процесс: иллюстрированный мультфильм по этапам ═══ */
 const tabs=$$('.tab'),panels=$$('.panels>div');
