@@ -6,8 +6,11 @@ const CONFIG={
   utm:{utm_source:'landing_bread',utm_medium:'landing',utm_campaign:'bread_nov2026'},
   ymId:null,            // ID счётчика Яндекс Метрики — цели landing_bread_*
     cutoffHour:15, tz:'Europe/Moscow',
-  // Видео из макета: положите файлы в v2/video/ и впишите пути. Пока пусто — показывается кадр-заставка.
-  video:{hero:'../assets/bread-hero.mp4',film:'../assets/bread-process.mp4'}
+  // Сжатые видео: 720p — для телефонов и режима экономии трафика, 1080p — для остальных экранов.
+  video:{
+    hero:{sm:'../assets/bread-hero-720.mp4',lg:'../assets/bread-hero-1080.mp4'},
+    film:{sm:'../assets/bread-process-720.mp4',lg:'../assets/bread-process-1080.mp4'}
+  }
 };
 const IMG={hero:"img/hero.webp",crust:"img/crust.webp",ital_w:"img/ital_w.webp",ital_c:"img/ital_c.webp",ital_s:"img/ital_s.webp",kar_s:"img/kar_s.webp",tp_w:"img/tp_w.webp",tp_s:"img/tp_s.webp",tr_s:"img/tr_s.webp",tr_l:"img/tr_l.webp",oat:"img/oat.webp",fruit:"img/fruit.webp",psh:"img/psh.webp",der:"img/der.webp",rzh:"img/rzh.webp",bor:"img/bor.webp",home:"img/home.webp"};
 const BREADS=[
@@ -108,8 +111,10 @@ document.addEventListener('click',e=>{const a=e.target.closest('.card .order');i
 
 /* ===== видео: первый экран и «Как рождается наш хлеб» ===== */
 (function(){$$('video[data-video]').forEach(v=>{
- const src=CONFIG.video[v.dataset.video];
- if(!src)return;
+ const cfg=CONFIG.video[v.dataset.video];
+ if(!cfg)return;
+ const small=matchMedia('(max-width:768px)').matches||navigator.connection?.saveData;
+ const src=typeof cfg==='string'?cfg:(small?cfg.sm:cfg.lg)||cfg.sm||cfg.lg;
  const source=document.createElement('source');
  source.src=src;
  source.type=src.endsWith('.webm')?'video/webm':'video/mp4';
