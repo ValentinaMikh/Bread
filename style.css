@@ -571,3 +571,6 @@ html.design-v2 .dev-variant-group{display:none}
 html.design-v2 body>header,html.design-v2 body>main,html.design-v2 body>footer,html.design-v2 body>.back-to-top,html.design-v2 body>.skip{visibility:hidden}
 
 button, [role="button"], .header-back, .section [data-name="base / Button"]{border-radius:16px}
+
+.dev-check{display:flex;align-items:center;gap:10px;cursor:pointer;font-weight:500}.dev-check input{width:18px;height:18px;accent-color:#e58e1a;flex:none;margin:0}
+.dev-v2-only{margin-top:20px}.dev-v2-only[hidden]{display:none}

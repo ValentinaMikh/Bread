@@ -240,3 +240,10 @@ document.addEventListener('click',e=>{const a=e.target.closest('.card .order');i
   $$('.card-media').forEach(m=>m.addEventListener('mouseleave',()=>show(m.closest('.card'),0)));
  }
 })();
+
+/* ===== Dev Mod: показать или скрыть блок «У каждого хлеба своё время» ===== */
+(function(){const sec=$('#ripen');if(!sec)return;
+ const set=show=>{sec.hidden=!show};
+ try{set(localStorage.getItem('v2-ripen')!=='hidden')}catch(e){}
+ addEventListener('message',e=>{const d=e.data||{};if(d.bread==='ripen')set(!!d.show)});
+})();

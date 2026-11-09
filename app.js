@@ -162,7 +162,7 @@ for (const id of ["28:2051", "28:2405", "28:2625", "28:2146", "28:2269", "28:334
  const bakery=document.querySelector('.section-13'),principles=byNode('28:783');
  const items=['28:784','28:787','28:790'].map(byNode);
  const widget=document.createElement('aside');widget.className='dev-widget';widget.setAttribute('aria-label','Dev Mod — варианты блоков');
- widget.innerHTML=`<button class="dev-toggle" type="button" aria-expanded="false" aria-controls="dev-panel"><span aria-hidden="true">◈</span> Dev Mod</button><div class="dev-panel" id="dev-panel" hidden><div class="dev-panel-header"><strong>Варианты блоков</strong><button class="dev-close" type="button" aria-label="Закрыть Dev Mod">×</button></div><div class="dev-design"><label for="design-variant">Дизайн лендинга</label><select id="design-variant"><option value="2">02 — Пекарня МясновЪ (основной)</option><option value="1">01 — Исходный макет</option></select><p class="dev-description dev-design-description"></p></div><div class="dev-v1-only"><label for="bakery-variant">Своя ремесленная пекарня</label><select id="bakery-variant"><option value="original">01 — Исходный макет</option><option value="production">02 — Линия производства</option><option value="photo">03 — Фотография с привязкой к тексту</option></select><p class="dev-description"></p><label for="process-variant">Пока хлеб созревает</label><select id="process-variant"><option value="original">01 — Исходный макет</option><option value="illustrated">02 — Иллюстрированный процесс</option></select><p class="dev-description dev-process-description"></p></div></div>`;
+ widget.innerHTML=`<button class="dev-toggle" type="button" aria-expanded="false" aria-controls="dev-panel"><span aria-hidden="true">◈</span> Dev Mod</button><div class="dev-panel" id="dev-panel" hidden><div class="dev-panel-header"><strong>Варианты блоков</strong><button class="dev-close" type="button" aria-label="Закрыть Dev Mod">×</button></div><div class="dev-design"><label for="design-variant">Дизайн лендинга</label><select id="design-variant"><option value="2">02 — Пекарня МясновЪ (основной)</option><option value="1">01 — Исходный макет</option></select><p class="dev-description dev-design-description"></p></div><div class="dev-v2-only"><label class="dev-check"><input type="checkbox" id="v2-ripen" checked> <span>Блок «У каждого хлеба своё время»</span></label><p class="dev-description">Снимите галочку, чтобы скрыть блок с часами созревания в дизайне 02.</p></div><div class="dev-v1-only"><label for="bakery-variant">Своя ремесленная пекарня</label><select id="bakery-variant"><option value="original">01 — Исходный макет</option><option value="production">02 — Линия производства</option><option value="photo">03 — Фотография с привязкой к тексту</option></select><p class="dev-description"></p><label for="process-variant">Пока хлеб созревает</label><select id="process-variant"><option value="original">01 — Исходный макет</option><option value="illustrated">02 — Иллюстрированный процесс</option></select><p class="dev-description dev-process-description"></p></div></div>`;
  document.body.append(widget);
  const toggle=widget.querySelector('.dev-toggle'),panel=widget.querySelector('.dev-panel'),select=widget.querySelector('#bakery-variant');
  const close=()=>{panel.hidden=true;toggle.setAttribute('aria-expanded','false');};
@@ -228,14 +228,19 @@ for (const id of ["28:2051", "28:2405", "28:2625", "28:2146", "28:2269", "28:334
  const applyDesign=value=>{
   const v2=value==='2';designSelect.value=v2?'2':'1';
   document.documentElement.classList.toggle('design-v2',v2);
-  if(v2&&!designFrame){designFrame=document.createElement('iframe');designFrame.className='design-frame';designFrame.title='Лендинг — дизайн 02, Пекарня МясновЪ';designFrame.src='v2/index.html?embed=1';document.body.append(designFrame);}
+  if(v2&&!designFrame){designFrame=document.createElement('iframe');designFrame.className='design-frame';designFrame.title='Лендинг — дизайн 02, Пекарня МясновЪ';designFrame.src='v2/index.html?embed=1';document.body.append(designFrame);designFrame.addEventListener('load',sendRipen);}
   if(designFrame)designFrame.hidden=!v2;
   for(const el of document.querySelectorAll('body > header, body > main, body > footer, body > .skip, body > .back-to-top'))el.inert=v2;
-  widget.querySelector('.dev-v1-only').hidden=v2;
-  widget.querySelector('.dev-design-description').textContent=v2?'Основной дизайн — по макету Figma «Вариант 2». Варианты отдельных блоков ниже относятся к дизайну 01.':'Исходный дизайн по первому макету Figma.';
+  widget.querySelector('.dev-v1-only').hidden=v2;widget.querySelector('.dev-v2-only').hidden=!v2;
+  widget.querySelector('.dev-design-description').textContent=v2?'Основной дизайн — по макету Figma «Вариант 2».':'Исходный дизайн по первому макету Figma.';
   try{localStorage.setItem('design-variant-main',v2?'2':'1');}catch{}
  };
  designSelect.onchange=()=>applyDesign(designSelect.value);
+ // Дизайн 02: показать или скрыть блок «У каждого хлеба своё время».
+ const ripenBox=widget.querySelector('#v2-ripen');
+ function sendRipen(){if(designFrame&&designFrame.contentWindow)designFrame.contentWindow.postMessage({bread:'ripen',show:ripenBox.checked},'*')}
+ try{ripenBox.checked=localStorage.getItem('v2-ripen')!=='hidden';}catch{}
+ ripenBox.onchange=()=>{try{localStorage.setItem('v2-ripen',ripenBox.checked?'shown':'hidden');}catch{}sendRipen();};
  // Основной дизайн — 02 (Пекарня МясновЪ); 01 открывается из Dev Mod.
  let savedDesign='2';try{savedDesign=localStorage.getItem('design-variant-main')||'2';}catch{}
  applyDesign(savedDesign);

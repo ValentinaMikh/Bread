@@ -241,7 +241,7 @@ ol,ul{padding:0;list-style:none}
 .grid{display:grid;gap:24px}
 .grid--3{grid-template-columns:repeat(3,1fr);margin-top:40px}
 .grid--4{grid-template-columns:repeat(4,1fr);margin-top:56px}
-.grp[hidden],.card[hidden]{display:none}
+.grp[hidden],.card[hidden],.ripen[hidden]{display:none}
 .carousel-dots{display:none}
 .card{display:flex;flex-direction:column;background:var(--card);border-radius:24px;overflow:hidden;view-transition-name:var(--vt)}
 .card-media{position:relative;flex:none;aspect-ratio:1/1;overflow:hidden;background:var(--paper)}   /* единый шаблон: квадратное фото во всех карточках */
