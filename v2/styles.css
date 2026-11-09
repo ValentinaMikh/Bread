@@ -298,6 +298,13 @@ ol,ul{padding:0;list-style:none}
 .final h2{display:flex;flex-direction:column;align-items:flex-start;gap:16px}
 .final h2 .script{margin-left:-4px}
 
+/* кнопка «наверх» — появляется при прокрутке вверх */
+.to-top{position:fixed;right:24px;bottom:24px;z-index:60;display:grid;place-items:center;width:56px;height:56px;border-radius:50%;background:var(--ink);color:var(--paper);box-shadow:0 10px 24px -10px rgba(39,11,10,.55);opacity:0;transform:translateY(16px) scale(.9);pointer-events:none;transition:opacity .25s,transform .3s var(--ease),background .2s}
+.to-top.show{opacity:1;transform:none;pointer-events:auto}
+.to-top:hover{background:var(--orange);color:var(--ink)}
+.to-top[hidden]{display:grid}
+.embed .to-top{bottom:96px}
+
 /* подвал */
 .foot{background:var(--paper);padding:48px 0}
 .foot-row{display:flex;align-items:center;gap:80px}
@@ -366,6 +373,7 @@ ol,ul{padding:0;list-style:none}
   .pv2 .bar-label b{font-size:30px}
 }
 @media (max-width:640px){
+  .to-top{right:16px;bottom:16px;width:48px;height:48px}
   :root{--gutter:16px}
   .h-xl,.sleep-h,.pv2 .process-head h2{font-size:40px}   /* заголовки блоков на телефоне */
   .hero .h-xl{font-size:48px}                              /* «Послушайте, как поёт хлеб» */

@@ -174,3 +174,14 @@ document.addEventListener('click',e=>{const a=e.target.closest('.card .order');i
   (document.fonts?document.fonts.ready:Promise.resolve()).then(run);
   addEventListener('resize',run,{passive:true});mq.addEventListener('change',run);
 })();
+
+/* ===== кнопка «наверх»: показываем при прокрутке вверх, когда первый экран уже позади ===== */
+(function(){const btn=$('#toTop'),hero=$('.hero');if(!btn||!hero)return;btn.hidden=false;
+ let last=scrollY,tick=false;
+ function upd(){const y=scrollY,past=y>hero.offsetTop+hero.offsetHeight;
+  if(!past||y>last+4)btn.classList.remove('show');else if(y<last-4)btn.classList.add('show');
+  last=y;tick=false}
+ addEventListener('scroll',()=>{if(!tick){tick=true;requestAnimationFrame(upd)}},{passive:true});
+ btn.addEventListener('click',e=>{e.preventDefault();btn.classList.remove('show');
+  scrollTo({top:0,behavior:reduceMotion.matches?'auto':'smooth'});history.replaceState(null,'','#main');
+  setTimeout(()=>$('#h1').focus?.({preventScroll:true}),600);track('to_top')})})();
