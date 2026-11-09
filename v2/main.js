@@ -150,3 +150,27 @@ document.addEventListener('click',e=>{const a=e.target.closest('.card .order');i
  },{rootMargin:'200px'});
  observer.observe(v);
 })})();
+
+/* ===== заголовки на телефоне: 40 px (первый экран — 48 px), но если в каждой строке
+   оказывается по одному слову — уменьшаем заголовок, пока слова не встанут хотя бы по два ===== */
+(function(){
+  const mq=matchMedia('(max-width:640px)'),MIN=26;
+  const heads=()=>$$('#main h1,#main h2').filter(h=>!h.closest('dialog'));
+  function lines(h){const tops=[];const w=document.createTreeWalker(h,NodeFilter.SHOW_TEXT);let n;
+    while(n=w.nextNode()){const re=/\S+/g;let m;while(m=re.exec(n.data)){const r=document.createRange();r.setStart(n,m.index);r.setEnd(n,m.index+m[0].length);tops.push(Math.round(r.getBoundingClientRect().top))}}
+    const c={};tops.forEach(t=>c[t]=(c[t]||0)+1);return Object.values(c)}
+  const allSingle=h=>{const c=lines(h);return c.length>1&&c.every(x=>x===1)};
+  function fit(){
+    heads().forEach(h=>{h.style.removeProperty('--fit');h.classList.remove('fit')});
+    if(!mq.matches)return;
+    heads().forEach(h=>{
+      if(!allSingle(h))return;
+      const t=h.querySelector('.h-xl')||h;let size=parseFloat(getComputedStyle(t).fontSize);
+      h.style.setProperty('--fit',size+'px');h.classList.add('fit');
+      while(allSingle(h)&&size>MIN){size-=2;h.style.setProperty('--fit',size+'px')}
+    });
+  }
+  let raf;const run=()=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(fit)};
+  (document.fonts?document.fonts.ready:Promise.resolve()).then(run);
+  addEventListener('resize',run,{passive:true});mq.addEventListener('change',run);
+})();

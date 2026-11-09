@@ -366,9 +366,10 @@ ol,ul{padding:0;list-style:none}
   .pv2 .bar-label b{font-size:30px}
 }
 @media (max-width:640px){
-  .hero .h-xl{font-size:40px}   /* «Послушайте, как поёт хлеб» на телефоне — 40 px */
   :root{--gutter:16px}
-  .h-xl,.sleep-h,.pv2 .process-head h2{font-size:24px}
+  .h-xl,.sleep-h,.pv2 .process-head h2{font-size:40px}   /* заголовки блоков на телефоне */
+  .hero .h-xl{font-size:48px}                              /* «Послушайте, как поёт хлеб» */
+  .fit,.fit .h-xl,.pv2 .process-head h2.fit{font-size:var(--fit)}   /* уменьшение из main.js, если по слову в строке */
   .pv2 .process-head p,.pv2 .panels p,.card-text p{font-size:16px;line-height:24px}
   .script{font-size:28px;line-height:32px}
   .top-row{height:64px}
