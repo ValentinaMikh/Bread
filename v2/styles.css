@@ -107,7 +107,6 @@ ol,ul{padding:0;list-style:none}
 .pv2 .eyebrow{font:500 18px/27px var(--sans);letter-spacing:0;color:var(--orange)}
 .pv2 .process-head{grid-template-columns:760px 1fr;gap:60px;margin:40px 0}
 .pv2 .process-head h2{font:700 64px/1 var(--sans);letter-spacing:-.025em;color:var(--ink)}
-.pv2 .process-head h2 .baked{line-height:inherit}   /* «пропекается» только тёмная часть, слово «вкус» без анимации */
 .pv2 .process-head h2 em{font-family:var(--script);font-style:normal;font-size:70px;line-height:0;letter-spacing:-.025em;color:var(--orange)}
 .pv2 .process-head p{font-size:18px;line-height:27px;color:var(--muted)}
 .pv2 .tab-no{font:500 18px/27px var(--sans);letter-spacing:0;color:var(--muted)}
