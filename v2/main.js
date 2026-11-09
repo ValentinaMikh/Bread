@@ -14,27 +14,27 @@ const CONFIG={
 };
 const IMG={hero:"img/hero.webp",crust:"img/crust.webp",ital_w:"img/ital_w.webp",ital_c:"img/ital_c.webp",ital_s:"img/ital_s.webp",kar_s:"img/kar_s.webp",tp_w:"img/tp_w.webp",tp_s:"img/tp_s.webp",tr_s:"img/tr_s.webp",tr_l:"img/tr_l.webp",oat:"img/oat.webp",fruit:"img/fruit.webp",psh:"img/psh.webp",der:"img/der.webp",rzh:"img/rzh.webp",bor:"img/bor.webp",home:"img/home.webp"};
 const BREADS=[
- {id:'italian',name:'Хлеб Итальянский домашний на закваске',w:'900 г',h:24,k:500,g:'long',use:['dinner','cheese'],
+ {id:'italian',name:'хлеб Итальянский домашний на закваске МЪ ПЕКАРНЯ бум.пак. 900г',w:'900 г',h:24,k:500,g:'long',use:['dinner','cheese'],
   d:'Три вида муки, хрустящая корочка и пористый мякиш.',p:['оливковое масло','томаты','моцарелла'],
   v:[['ital_w','Целиком'],['ital_s','В разрезе'],['ital_c','Корочка']],url:'/catalog/product/khleb-italyanskiy-domashniy-na-zakvaske-900-g-90012344'},
- {id:'tartin-wheat',name:'Тартин пшеничный с пророщенным зерном пшеницы',w:'450 г',h:18,k:500,g:'long',use:['breakfast'],
-  d:'Пшеничный вкус с лёгкими ореховыми нотами.',p:['творожный сыр','авокадо','яйцо'],v:[['tp_w','Целиком'],['tp_s','Ломтики']],url:''},
- {id:'tartin-rye',name:'Тартин с пророщенным зерном ржи',w:'400 г',h:18,k:500,g:'long',use:['cheese','breakfast'],
+ {id:'tartin-rye',name:'тартин с пророщенным зерном ржи МЪ ПЕКАРНЯ в уп.бум.пак. 400г',w:'400 г',h:18,k:500,g:'long',use:['cheese','breakfast'],
   d:'Глубокие солодовые ноты и пористый мякиш.',p:['сливочное масло','сыр','паштет'],v:[['tr_s','В разрезе'],['tr_l','Ломтики']],url:''},
- {id:'karelian',name:'Тартин Карельский солодовый с грецким орехом и клюквой',w:'450 г',h:16,k:500,g:'long',use:['cheese','breakfast','tea'],
+ {id:'tartin-wheat',name:'тартин пшеничный с пророщенным зерном пшеницы МЪ ПЕКАРНЯ в уп.бум.пак. 450г',w:'450 г',h:18,k:500,g:'long',use:['breakfast'],
+  d:'Пшеничный вкус с лёгкими ореховыми нотами.',p:['творожный сыр','авокадо','яйцо'],v:[['tp_w','Целиком'],['tp_s','Ломтики']],url:''},
+ {id:'karelian',name:'тартин Карельский солодовый с грецким орехом и клюквой МЪ ПЕКАРНЯ в уп.бум.пак. 450г',w:'450 г',h:16,k:500,g:'long',use:['cheese','breakfast','tea'],
   d:'Солод, лёгкая терпкость ореха и кислинка клюквы.',p:['сырная тарелка','завтрак','чай'],v:[['hero','Целиком'],['kar_s','В разрезе'],['crust','Корочка']],url:''},
- {id:'oat',name:'Тартин Овсяный с яблоком и корицей',w:'450 г',h:16,k:500,g:'long',use:['breakfast','tea','cheese'],
+ {id:'oat',name:'тартин овсяный с яблоком и корицей МЪ ПЕКАРНЯ в уп.бум.пак. 450г',w:'450 г',h:16,k:500,g:'long',use:['breakfast','tea','cheese'],
   d:'Овсяное зерно, сушёное яблоко и деликатная корица.',p:['сливочное масло','мягкий сыр'],v:[['oat','В разрезе']],url:''},
- {id:'fruit',name:'Хлеб бездрожжевой с изюмом и черносливом',w:'500 г',h:24,k:500,g:'long',use:['tea','cheese'],
+ {id:'fruit',name:'хлеб бездрожжевой с изюмом и черносливом МЪ ПЕКАРНЯ в уп.бум.пак 500г',w:'500 г',h:24,k:500,g:'long',use:['tea','cheese'],
   d:'Чуть влажный мякиш, солодовый аромат, изюм, чернослив и курага.',sp:'Без добавления хлебопекарных дрожжей',p:['чай','кофе','выдержанный сыр'],v:[['fruit','В разрезе']],url:''},
- {id:'wheat',name:'Пшеничный',w:'500 г',h:null,k:500,g:'classic',use:['breakfast','dinner'],
-  d:'Плотный ароматный мякиш и толстая корочка.',p:['ломоть с маслом','тост','бутерброд'],v:[['psh','Целиком']],url:'/catalog/product/khleb-pshenichnyy-500g-90012362'},
- {id:'village',name:'Деревенский',w:'600 г',h:null,k:500,g:'classic',use:['dinner'],
-  d:'Пшеничная и ржаная мука, солод и закваска. Ароматный хлеб к супу и домашнему обеду.',p:['суп','домашний обед'],v:[['der','Целиком']],url:'/catalog/product/khleb-derevenskiy-600g-90012335'},
- {id:'rye',name:'Ржаной формовой',w:'800 г',h:null,k:250,g:'classic',form:true,use:['dinner'],
+ {id:'borodinsky',name:'хлеб Бородинский формовой МЪ ПЕКАРНЯ в уп.бум.пак. 400г',w:'400 г',h:null,k:250,g:'classic',form:true,use:['dinner'],
+  d:'Ржаная мука, солод и кориандр. Узнаваемый слегка сладковатый вкус и тёмный мякиш.',p:[],v:[['bor','Целиком']],url:'/catalog/product/khleb-borodinskiy-myasnov-pekarnya-90012324'},
+ {id:'rye',name:'хлеб ржаной формовой МЪ ПЕКАРНЯ в уп.бум.пак. 800г',w:'800 г',h:null,k:250,g:'classic',form:true,use:['dinner'],
   d:'Плотный мякиш и выраженная кислинка.',p:['горячие блюда','солёная рыба','сливочное масло'],v:[['rzh','Целиком']],url:'/catalog/product/khleb-rzhanoy-gost-800g-90012374'},
- {id:'borodinsky',name:'Бородинский формовой',w:'400 г',h:null,k:250,g:'classic',form:true,use:['dinner'],
-  d:'Ржаная мука, солод и кориандр. Узнаваемый слегка сладковатый вкус и тёмный мякиш.',p:[],v:[['bor','Целиком']],url:'/catalog/product/khleb-borodinskiy-myasnov-pekarnya-90012324'}
+ {id:'village',name:'хлеб Деревенский МЪ ПЕКАРНЯ в уп.бум.пак. 600г',w:'600 г',h:null,k:500,g:'classic',use:['dinner'],
+  d:'Пшеничная и ржаная мука, солод и закваска. Ароматный хлеб к супу и домашнему обеду.',p:['суп','домашний обед'],v:[['der','Целиком']],url:'/catalog/product/khleb-derevenskiy-600g-90012335'},
+ {id:'wheat',name:'хлеб пшеничный МЪ ПЕКАРНЯ в уп.бум.пак. 500г',w:'500 г',h:null,k:500,g:'classic',use:['breakfast','dinner'],
+  d:'Плотный ароматный мякиш и толстая корочка.',p:['ломоть с маслом','тост','бутерброд'],v:[['psh','Целиком']],url:'/catalog/product/khleb-pshenichnyy-500g-90012362'}
 ];
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
 const word=(n,a,b,c)=>{n=Math.abs(n)%100;const m=n%10;return n>10&&n<20?c:m>1&&m<5?b:m==1?a:c};
