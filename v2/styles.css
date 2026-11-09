@@ -6,7 +6,6 @@
 @font-face{font-family:"Ubuntu";font-weight:500;font-display:swap;src:url(../assets/4iCv6KVjbNBYlgoCjC3Ttw.ttf) format("truetype")}
 @font-face{font-family:"Ubuntu";font-weight:700;font-display:swap;src:url(../assets/4iCv6KVjbNBYlgoCxCvTtw.ttf) format("truetype")}
 @font-face{font-family:"Nexa Script";font-weight:400;font-display:swap;src:url(../assets/nexa-script.ttf) format("truetype")}
-@font-face{font-family:"Playfair Display";font-weight:400;font-display:swap;src:url(../assets/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKdFvUDQ.ttf) format("truetype")}
 
 :root{
   --paper:#FAF6ED;      /* светлые секции, шапка, подвал */
@@ -87,12 +86,13 @@ ol,ul{padding:0;list-style:none}
 .sec--joined{padding-top:60px}
 
 /* 01 · Hero */
-.hero{display:grid;grid-template-columns:775fr 845fr;min-height:760px;background:var(--beige);overflow:hidden}
+.hero{display:grid;grid-template-columns:858fr 762fr;min-height:760px;background:var(--paper);overflow:hidden}
 .hero-copy{display:flex;flex-direction:column;justify-content:center;gap:40px;padding:80px 40px 80px 176px}
 .hero-text{display:flex;flex-direction:column;gap:40px}
 .hero-text .lead{max-width:454px}
 .hero-media{position:relative;min-height:100%}
-.hero-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:left center}
+.hero-media{background:#d9d9d9}
+.hero-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 
 /* 02 · Корочка */
 .crust{display:grid;grid-template-columns:550px 588px;gap:138px;align-items:center}
@@ -130,13 +130,17 @@ ol,ul{padding:0;list-style:none}
 /* 04 · Как рождается наш хлеб */
 .film,.sleep{position:relative;overflow:hidden;background:#472b1a;color:var(--paper)}
 .film-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.film-video{opacity:0;transition:opacity .6s}
+.film.has-video .film-video{opacity:1}
+.film.has-video::before{content:"";position:absolute;inset:0;z-index:1;background:rgba(168,105,49,.4);pointer-events:none}
+.film-inner{z-index:2}
 .film-inner,.sleep-inner{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;gap:40px;margin:0 auto}
 .film{min-height:530px;padding-top:55px}
 .film-inner{width:min(502px,calc(100% - 2*var(--gutter)))}
 .film .h-xl{color:var(--paper)}
 .play{display:grid;place-items:center;width:78px;height:79px;padding-left:6px;border-radius:50%;border:1px solid rgba(255,255,255,.08);background:var(--sand);cursor:default}
-.film-card{width:min(377px,100%);padding:40px;background:var(--sand);color:var(--muted);font-size:18px;line-height:27px;text-align:left}
-.film-card--paper{background:var(--paper);width:min(580px,100%)}
+.film-card{width:min(377px,100%);padding:40px;border-radius:32px 24px 0 0;background:var(--sand);color:var(--muted);font-size:18px;line-height:27px;text-align:center}
+.film-card--paper{background:var(--paper);width:min(580px,100%);border-radius:24px 24px 0 0}
 
 /* 05 · Рассмотрите */
 .look-photo{display:block;margin:0 auto 24px;padding:0;border:0;background:none;cursor:zoom-in;width:411px;max-width:100%;transition:transform .5s var(--ease)}
@@ -233,8 +237,7 @@ ol,ul{padding:0;list-style:none}
 /* 11 · Сколько спит пекарь */
 .sleep{min-height:549px;padding-top:80px;display:flex}
 .sleep-inner{gap:40px;width:min(1000px,calc(100% - 2*var(--gutter)));justify-content:flex-end}
-.sleep-inner .eyebrow{margin-top:84px}
-.sleep-h{font:400 56px/62.7px "Playfair Display",Georgia,serif;letter-spacing:-1.4px;color:var(--paper);margin-top:-24px}
+.sleep-h{font:700 64px/1 var(--sans);letter-spacing:-.025em;color:var(--paper)}
 
 /* 12 · Формат */
 .format-h{margin:32px 0}
@@ -274,8 +277,8 @@ ol,ul{padding:0;list-style:none}
 /* появление */
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
 .reveal.in{opacity:1;transform:none}
-.hero-media img{transform:scale(1.06);transition:transform 1.6s var(--ease)}
-.hero-media.in img{transform:none}
+.hero-media video{transform:scale(1.06);transition:transform 1.6s var(--ease)}
+.hero-media.in video{transform:none}
 
 /* ---------- адаптив ---------- */
 @media (max-width:1400px){
@@ -302,7 +305,7 @@ ol,ul{padding:0;list-style:none}
   .hero{grid-template-columns:1fr;min-height:0}
   .hero-copy{padding:56px var(--gutter);gap:28px}
   .hero-text{gap:24px}
-  .hero-media{min-height:0;aspect-ratio:845/560}
+  .hero-media{min-height:0;aspect-ratio:1/1}
   .crust,.duo,.pre-grid,.bakery-top,.formats{grid-template-columns:1fr;gap:48px}
   .crust-media{max-width:550px}
   .seal{left:-12px;width:100px;height:auto;bottom:-36px}
@@ -319,8 +322,7 @@ ol,ul{padding:0;list-style:none}
   .fmt-img--slices{margin:-40px 0 0;width:min(446px,80%)}
   .fmt-img--whole{width:min(411px,70%)}
   .film{min-height:0;padding-top:48px}
-  .sleep-h{font-size:40px;line-height:46px}
-  .sleep-inner .eyebrow{margin-top:0}
+  .sleep-h{font-size:44px}
   .foot-row{flex-direction:column;align-items:flex-start;gap:24px}
   .pv2 .wrap{padding:80px var(--gutter)}
   .pv2 h2.baked{font-size:44px}
@@ -364,6 +366,6 @@ ol,ul{padding:0;list-style:none}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  .reveal,.hero-media img{opacity:1;transform:none;transition:none}
+  .reveal,.hero-media video{opacity:1;transform:none;transition:none}
   .state i{animation:none}
 }

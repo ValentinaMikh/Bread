@@ -5,7 +5,9 @@ const CONFIG={
   appUrl:'',            // ссылка на приложение (смарт-ссылка App Store / Google Play / RuStore); пусто — кнопка ведёт в каталог
   utm:{utm_source:'landing_bread',utm_medium:'landing',utm_campaign:'bread_nov2026'},
   ymId:null,            // ID счётчика Яндекс Метрики — цели landing_bread_*
-    cutoffHour:15, tz:'Europe/Moscow'
+    cutoffHour:15, tz:'Europe/Moscow',
+  // Видео из макета: положите файлы в v2/video/ и впишите пути. Пока пусто — показывается кадр-заставка.
+  video:{hero:'',film:''}
 };
 const IMG={hero:"img/hero.webp",crust:"img/crust.webp",ital_w:"img/ital_w.webp",ital_c:"img/ital_c.webp",ital_s:"img/ital_s.webp",kar_s:"img/kar_s.webp",tp_w:"img/tp_w.webp",tp_s:"img/tp_s.webp",tr_s:"img/tr_s.webp",tr_l:"img/tr_l.webp",oat:"img/oat.webp",fruit:"img/fruit.webp",psh:"img/psh.webp",der:"img/der.webp",rzh:"img/rzh.webp",bor:"img/bor.webp",home:"img/home.webp"};
 const BREADS=[
@@ -103,3 +105,10 @@ document.addEventListener('click',e=>{const a=e.target.closest('.card .order');i
   else{box.classList.add('late');st.textContent='Предзаказ из пекарни';big.textContent='До 15:00';
    sub.textContent='Выберите доступную дату и время получения на сайте или в приложении КуулКлевер.'}}
  upd();setInterval(upd,15000)})();
+
+/* ===== видео: первый экран и «Как рождается наш хлеб» ===== */
+(function(){$$('video[data-video]').forEach(v=>{const src=CONFIG.video&&CONFIG.video[v.dataset.video];if(!src)return;
+ const s=document.createElement('source');s.src=src;s.type=src.endsWith('.webm')?'video/webm':'video/mp4';v.append(s);
+ v.addEventListener('playing',()=>{const f=v.closest('.film');if(f)f.classList.add('has-video')},{once:true});
+ if(reduceMotion.matches){v.preload='metadata';return}
+ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){v.load();v.play().catch(()=>{});io.disconnect()}}),{rootMargin:'200px'});io.observe(v)})})();
