@@ -190,3 +190,17 @@ document.addEventListener('click',e=>{const a=e.target.closest('.card .order');i
  btn.addEventListener('click',e=>{e.preventDefault();btn.classList.remove('show');
   scrollTo({top:0,behavior:reduceMotion.matches?'auto':'smooth'});history.replaceState(null,'','#main');
   setTimeout(()=>$('#h1').focus?.({preventScroll:true}),600);track('to_top')})})();
+
+/* ===== каталог на телефоне: карусель карточек с точками-индикаторами ===== */
+(function(){const mq=matchMedia('(max-width:640px)');
+ $$('.grid--3,.grid--4').forEach(g=>{
+  const dots=document.createElement('div');dots.className='carousel-dots';dots.setAttribute('aria-hidden','true');g.after(dots);
+  const cards=()=>$$('.card',g).filter(c=>!c.hidden);
+  function build(){const n=cards().length;dots.innerHTML='<i></i>'.repeat(n);mark()}
+  function mark(){const cs=cards();if(!cs.length)return;const x=g.scrollLeft,w=cs[0].offsetWidth+12;
+   const i=Math.min(cs.length-1,Math.round(x/w));$$('i',dots).forEach((d,k)=>d.classList.toggle('on',k===i))}
+  let t;g.addEventListener('scroll',()=>{cancelAnimationFrame(t);t=requestAnimationFrame(mark)},{passive:true});
+  new MutationObserver(()=>{g.scrollLeft=0;build()}).observe(g,{subtree:true,attributes:true,attributeFilter:['hidden']});
+  build();mq.addEventListener('change',build);
+ });
+})();

@@ -182,6 +182,7 @@ ol,ul{padding:0;list-style:none}
 .grid--3{grid-template-columns:repeat(3,1fr)}
 .grid--4{grid-template-columns:repeat(4,1fr);margin-top:56px}
 .grp[hidden],.card[hidden]{display:none}
+.carousel-dots{display:none}
 .card{display:flex;flex-direction:column;background:var(--card);border-radius:24px;overflow:hidden;view-transition-name:var(--vt)}
 .card-media{position:relative;height:401px;background:var(--paper)}
 .grid--4 .card-media{height:279px}
@@ -391,7 +392,16 @@ ol,ul{padding:0;list-style:none}
   .sec--joined{padding-top:24px}
   .btn-row{gap:16px}
   .btn-row .btn{flex:1 1 100%}
-  .grid--3,.grid--4{grid-template-columns:1fr}
+  /* карточки хлеба — карусель с прокруткой пальцем; следующая карточка выглядывает справа */
+  .grid--3,.grid--4{display:grid;grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:82%;gap:12px;
+    overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding-inline:var(--gutter);
+    margin-inline:calc(-1*var(--gutter));padding:0 var(--gutter) 8px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .grid--3::-webkit-scrollbar,.grid--4::-webkit-scrollbar{display:none}
+  .grid--3>.card,.grid--4>.card{scroll-snap-align:start}
+  .grid--4{margin-top:32px}
+  .carousel-dots{display:flex;justify-content:center;gap:6px;margin-top:12px}
+  .carousel-dots i{width:6px;height:6px;border-radius:3px;background:rgba(39,11,10,.2);transition:width .25s,background .25s}
+  .carousel-dots i.on{width:18px;background:var(--orange)}
   .filters{flex-wrap:nowrap;overflow-x:auto;margin:24px calc(-1*var(--gutter));padding:0 var(--gutter) 8px;scrollbar-width:none}
   .filters::-webkit-scrollbar{display:none}
   .chip{flex:none;font-size:15px}
