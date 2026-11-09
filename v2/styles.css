@@ -82,6 +82,7 @@ ol,ul{padding:0;list-style:none}
 .top-right{justify-self:end;display:flex;align-items:center;gap:12px}
 .sound-top{display:inline-flex;align-items:center;gap:10px;height:50px;padding:0 18px;border:0;border-radius:16px;background:var(--sand);color:var(--ink);font:400 16px/1 var(--sans);cursor:pointer;transition:background .2s,color .2s}
 .sound-top:hover{background:#dfcbb2}
+@media (min-width:768px){.sound-top{display:none}}   /* на планшете и компьютере звук — кнопкой в блоке «Пока хлеб созревает» */
 .sound-top[aria-pressed=true]{background:var(--orange);color:var(--ink)}
 .sound-top .eq{display:inline-flex;gap:2px;align-items:flex-end;height:14px}
 .sound-top .eq i{width:2px;height:4px;background:currentColor}
