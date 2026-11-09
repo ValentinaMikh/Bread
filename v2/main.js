@@ -258,6 +258,6 @@ function ripenItems(h){const r=RIPEN[h];if(!r)return'';
 /* ===== Dev Mod: показать или скрыть блок «У каждого хлеба своё время» ===== */
 (function(){const sec=$('#ripen');if(!sec)return;
  const set=show=>{sec.hidden=!show};
- try{set(localStorage.getItem('v2-ripen')!=='hidden')}catch(e){}
+ set(false);try{set(localStorage.getItem('v2-ripen')==='shown')}catch(e){}
  addEventListener('message',e=>{const d=e.data||{};if(d.bread==='ripen')set(!!d.show)});
 })();
