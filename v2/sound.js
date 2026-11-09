@@ -72,6 +72,21 @@
   document.readyState==='loading'?document.addEventListener('DOMContentLoaded',watch):watch();
   setSound('crust');
 
+  // блок «Пока хлеб созревает» во фрейме: высота, этап, кнопка «Звук»
+  (function(){
+    const go=()=>{const f=document.getElementById('procFrame');if(!f)return;
+      const tell=()=>{try{f.contentWindow.postMessage({bread:'sound',on},'*');f.contentWindow.postMessage({bread:'vh',vh:innerHeight},'*')}catch(e){}};
+      addEventListener('message',e=>{if(e.source!==f.contentWindow)return;const d=e.data||{};
+        if(d.bread==='height'&&d.h>0)f.style.height=d.h+'px';
+        else if(d.bread==='stage')window.breadSound.setStage(d.n);
+        else if(d.bread==='sound-toggle')window.breadSound.toggle();
+        else if(d.bread==='ready')tell();});
+      subs.push(tell);addEventListener('resize',tell,{passive:true});f.addEventListener('load',tell);
+      new IntersectionObserver(([e])=>window.breadSound.setStageVisible(e.isIntersecting),{rootMargin:'-45% 0px -45% 0px'}).observe(f);
+    };
+    document.readyState==='loading'?document.addEventListener('DOMContentLoaded',go):go();
+  })();
+
   // кнопка в шапке
   document.addEventListener('DOMContentLoaded',()=>{
     document.querySelectorAll('[data-sound-toggle]').forEach(b=>{
