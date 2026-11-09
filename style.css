@@ -565,7 +565,7 @@ body{padding-top:var(--header-height)}
 }
 .dev-panel .dev-description+label{margin-top:20px}
 .dev-design{padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid #ceb79a66}.dev-v1-only[hidden]{display:none}
-.design-frame{position:fixed;inset:0;width:100%;height:100%;height:100dvh;border:0;z-index:99;background:#fff8ec}.design-frame[hidden]{display:none}
+.design-frame{position:fixed;inset:0;width:100%;height:100%;height:100dvh;border:0;z-index:99;background:#faf6ed}.design-frame[hidden]{display:none}
 html.design-v2,html.design-v2 body{overflow:hidden}
 html.design-v2 .dev-variant-group{display:none}
-html.design-v2 body>header,html.design-v2 body>.back-to-top,html.design-v2 body>.skip{visibility:hidden}
+html.design-v2 body>header,html.design-v2 body>main,html.design-v2 body>footer,html.design-v2 body>.back-to-top,html.design-v2 body>.skip{visibility:hidden}

@@ -162,7 +162,7 @@ for (const id of ["28:2051", "28:2405", "28:2625", "28:2146", "28:2269", "28:334
  const bakery=document.querySelector('.section-13'),principles=byNode('28:783');
  const items=['28:784','28:787','28:790'].map(byNode);
  const widget=document.createElement('aside');widget.className='dev-widget';widget.setAttribute('aria-label','Dev Mod — варианты блоков');
- widget.innerHTML=`<button class="dev-toggle" type="button" aria-expanded="false" aria-controls="dev-panel"><span aria-hidden="true">◈</span> Dev Mod</button><div class="dev-panel" id="dev-panel" hidden><div class="dev-panel-header"><strong>Варианты блоков</strong><button class="dev-close" type="button" aria-label="Закрыть Dev Mod">×</button></div><div class="dev-design"><label for="design-variant">Дизайн лендинга</label><select id="design-variant"><option value="1">01 — Исходный макет</option><option value="2">02 — Пекарня МясновЪ</option></select><p class="dev-description dev-design-description"></p></div><div class="dev-v1-only"><label for="bakery-variant">Своя ремесленная пекарня</label><select id="bakery-variant"><option value="original">01 — Исходный макет</option><option value="production">02 — Линия производства</option><option value="photo">03 — Фотография с привязкой к тексту</option></select><p class="dev-description"></p><label for="process-variant">Пока хлеб созревает</label><select id="process-variant"><option value="original">01 — Исходный макет</option><option value="illustrated">02 — Иллюстрированный процесс</option></select><p class="dev-description dev-process-description"></p></div></div>`;
+ widget.innerHTML=`<button class="dev-toggle" type="button" aria-expanded="false" aria-controls="dev-panel"><span aria-hidden="true">◈</span> Dev Mod</button><div class="dev-panel" id="dev-panel" hidden><div class="dev-panel-header"><strong>Варианты блоков</strong><button class="dev-close" type="button" aria-label="Закрыть Dev Mod">×</button></div><div class="dev-design"><label for="design-variant">Дизайн лендинга</label><select id="design-variant"><option value="2">02 — Пекарня МясновЪ (основной)</option><option value="1">01 — Исходный макет</option></select><p class="dev-description dev-design-description"></p></div><div class="dev-v1-only"><label for="bakery-variant">Своя ремесленная пекарня</label><select id="bakery-variant"><option value="original">01 — Исходный макет</option><option value="production">02 — Линия производства</option><option value="photo">03 — Фотография с привязкой к тексту</option></select><p class="dev-description"></p><label for="process-variant">Пока хлеб созревает</label><select id="process-variant"><option value="original">01 — Исходный макет</option><option value="illustrated">02 — Иллюстрированный процесс</option></select><p class="dev-description dev-process-description"></p></div></div>`;
  document.body.append(widget);
  const toggle=widget.querySelector('.dev-toggle'),panel=widget.querySelector('.dev-panel'),select=widget.querySelector('#bakery-variant');
  const close=()=>{panel.hidden=true;toggle.setAttribute('aria-expanded','false');};
@@ -232,11 +232,12 @@ for (const id of ["28:2051", "28:2405", "28:2625", "28:2146", "28:2269", "28:334
   if(designFrame)designFrame.hidden=!v2;
   for(const el of document.querySelectorAll('body > header, body > main, body > footer, body > .skip, body > .back-to-top'))el.inert=v2;
   widget.querySelector('.dev-v1-only').hidden=v2;
-  widget.querySelector('.dev-design-description').textContent=v2?'Тексты как в варианте 01. Варианты отдельных блоков относятся к дизайну 01.':'Исходный дизайн по макету Figma.';
-  try{localStorage.setItem('design-variant',v2?'2':'1');}catch{}
+  widget.querySelector('.dev-design-description').textContent=v2?'Основной дизайн — по макету Figma «Вариант 2». Варианты отдельных блоков ниже относятся к дизайну 01.':'Исходный дизайн по первому макету Figma.';
+  try{localStorage.setItem('design-variant-main',v2?'2':'1');}catch{}
  };
  designSelect.onchange=()=>applyDesign(designSelect.value);
- let savedDesign='1';try{savedDesign=localStorage.getItem('design-variant')||'1';}catch{}
+ // Основной дизайн — 02 (Пекарня МясновЪ); 01 открывается из Dev Mod.
+ let savedDesign='2';try{savedDesign=localStorage.getItem('design-variant-main')||'2';}catch{}
  applyDesign(savedDesign);
  window.addEventListener('scroll',requestUpdate,{passive:true});window.addEventListener('resize',requestUpdate,{passive:true});new ResizeObserver(requestUpdate).observe(principles);
 }
