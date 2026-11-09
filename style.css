@@ -564,3 +564,4 @@ body{padding-top:var(--header-height)}
  .section a.quiet-action:hover{transform:none}.quiet-action-arrow{translate:none!important}.quiet-product-image{scale:1!important}
 }
 .dev-panel .dev-description+label{margin-top:20px}
+.dev-panel .dev-link{display:block;margin-top:20px;padding:12px 14px;border-radius:8px;background:#f3aa48;color:#2b1a0e;font-weight:500;text-decoration:none;text-align:center}.dev-panel .dev-link:hover{background:#e8962a}
