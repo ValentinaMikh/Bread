@@ -269,6 +269,7 @@ ol,ul{padding:0;list-style:none}
 .store-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 .store-steps li{display:flex;flex-direction:column;gap:10px}
 .ph{height:186px;background:#D9D9D9}
+.store-steps img{border-radius:24px}
 .store-steps p{color:var(--muted)}
 
 /* 14 · Финал */
