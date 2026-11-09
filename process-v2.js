@@ -21,7 +21,8 @@ function tween(el,from,to,ms,done){
   const f=now=>{const k=clamp((now-t0)/ms);setBake(el,from+(to-from)*ease(k));if(k<1)el._raf=requestAnimationFrame(f);else done&&done()};
   el._raf=requestAnimationFrame(f);
 }
-const title=$('#process-title');
+// «Пропекание» можно ограничить частью заголовка: <span class="baked"> внутри #process-title.
+const title=$('#process-title .baked')||$('#process-title');
 if(title){
   setBake(title,0);
   if(reduced)setBake(title,1);
