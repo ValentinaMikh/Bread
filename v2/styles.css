@@ -235,7 +235,8 @@ ol,ul{padding:0;list-style:none}
 .all-link{display:inline-block;margin-top:32px;color:var(--orange);transition:letter-spacing .3s var(--ease)}
 .all-link:hover{text-decoration:underline;text-underline-offset:4px}
 
-/* 10a · Артизанальная пекарня */
+/* 12a · Артизанальная пекарня — продолжает бежевый блок «Хлеб нашей Пекарни» */
+.artisan.sec--joined{padding-top:40px}
 .artisan-top{display:grid;grid-template-columns:1fr 600px;gap:56px;align-items:end}
 .artisan-top .h-xl .script{display:block;margin-top:12px;line-height:62.7px}
 .artisan-list{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:56px}
