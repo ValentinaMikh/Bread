@@ -247,7 +247,7 @@
 }
 /* Fixed development controls are outside the scaled design canvas. */
 .dev-widget{position:fixed;right:20px;bottom:20px;z-index:100;font-family:Ubuntu,Arial,sans-serif;font-size:14px;line-height:1.45;color:#f7f1e5}
-.dev-toggle{display:flex;align-items:center;gap:8px;background:#270b0a;border:1px solid #6a5142;border-radius:10px;padding:11px 16px;box-shadow:0 4px 20px #270b0a24;font-weight:500;color:#f7f1e5}
+.dev-toggle{display:flex;align-items:center;gap:8px;background:#270b0a;border:1px solid #6a5142;border-radius:16px;padding:11px 16px;box-shadow:0 4px 20px #270b0a24;font-weight:500;color:#f7f1e5}
 .dev-toggle:hover{background:#422621}.dev-toggle>span{color:#c9d8aa;font-size:18px}
 .dev-panel{position:absolute;right:0;bottom:58px;width:320px;padding:20px;background:#faf6ed;color:#270b0a;border:1px solid #d8c8b3;border-radius:12px;box-shadow:0 12px 40px #270b0a24}
 .dev-panel[hidden]{display:none}.dev-panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}.dev-panel-header strong{font-size:16px}.dev-close{background:transparent;font-size:24px;line-height:1;padding:2px 6px;color:#786957}.dev-panel label{display:block;margin-bottom:8px;font-size:13px;font-weight:500}.dev-panel select{font:inherit;width:100%;padding:10px 8px;border:1px solid #ceb79a;border-radius:6px;background:#fffdf8;color:#270b0a}.dev-description{font-size:12px;color:#786957;margin-top:12px;line-height:1.5}
@@ -278,7 +278,7 @@
 .panorama-scene>img{width:100%;height:100%;object-fit:cover}
 .bakery-panorama figcaption{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:14px;line-height:1.5;color:#786957;padding-top:12px}
 .bakery-panorama figcaption>span:last-child{font-size:12px}
-.panorama-point{position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,-50%);width:44px;height:44px;border-radius:50%;border:2px solid #faf6ed;background:#485933;color:#faf6ed;display:grid;place-items:center;box-shadow:0 0 0 6px #faf6ed55,0 2px 8px #270b0a33;transition:background .2s,box-shadow .2s;z-index:1;font-size:18px;font-weight:500}
+.panorama-point{position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,-50%);width:44px;height:44px;border-radius:16px;border:2px solid #faf6ed;background:#485933;color:#faf6ed;display:grid;place-items:center;box-shadow:0 0 0 6px #faf6ed55,0 2px 8px #270b0a33;transition:background .2s,box-shadow .2s;z-index:1;font-size:18px;font-weight:500}
 .panorama-point::before{content:"";position:absolute;inset:-34px;border-radius:50%;border:1px solid #faf6ed;box-shadow:0 0 0 14px #faf6ed20;opacity:0;transition:opacity .2s;pointer-events:none}
 .panorama-point.is-highlighted{background:#270b0a;box-shadow:0 0 0 8px #faf6ed88,0 2px 12px #270b0a55;z-index:2}
 .panorama-point.is-highlighted::before{opacity:1}
@@ -453,7 +453,7 @@ body{padding-top:var(--header-height)}
 .site-navigation{display:flex;align-items:center;gap:30px}
 .site-navigation>a{font-size:14px;white-space:nowrap;transition:color .2s}
 .site-navigation>a:hover{color:#485933}
-.site-navigation .site-menu-cta{padding:13px 19px;background:#270b0a;color:#faf6ed;border-radius:8px;display:flex;gap:18px;align-items:center;transition:background .2s}
+.site-navigation .site-menu-cta{padding:13px 19px;background:#270b0a;color:#faf6ed;border-radius:16px;display:flex;gap:18px;align-items:center;transition:background .2s}
 .site-navigation .site-menu-cta:hover{background:#485933;color:#faf6ed}
 .site-menu-toggle{display:none}
 @media(max-width:1023px){
@@ -487,10 +487,10 @@ body{padding-top:var(--header-height)}
 .header-back{justify-self:start;display:flex;align-items:center;justify-content:center;width:32px;height:32px;color:#270b0a}
 .header-logo{justify-self:center;display:block;width:260px;height:75px}
 .header-logo-image{display:block;width:100%;height:auto}
-.header-order{justify-self:end;display:flex;align-items:center;justify-content:center;gap:8px;width:273px;height:50px;padding:0 24px;border-radius:8px;background:#eadbc8;color:#270b0a;font:400 16px/1.4 Ubuntu,Arial,sans-serif;white-space:nowrap;transition:background .2s}
+.header-order{justify-self:end;display:flex;align-items:center;justify-content:center;gap:8px;width:273px;height:50px;padding:0 24px;border-radius:16px;background:#eadbc8;color:#270b0a;font:400 16px/1.4 Ubuntu,Arial,sans-serif;white-space:nowrap;transition:background .2s}
 .header-order:hover{background:#dfcbb2}
 .header-order img{flex-shrink:0;width:20px;height:20px}
-.header-back:focus-visible,.header-logo:focus-visible,.header-order:focus-visible{outline:2px solid #80ba27;outline-offset:4px;border-radius:8px}
+.header-back:focus-visible,.header-logo:focus-visible,.header-order:focus-visible{outline:2px solid #80ba27;outline-offset:4px;border-radius:16px}
 @media(max-width:1023px){.figma-header .site-header-inner{padding:10px 24px}}
 @media(max-width:879px){
  :root{--header-height:64px}
@@ -500,7 +500,7 @@ body{padding-top:var(--header-height)}
  .header-order{width:40px;height:40px;padding:0;font-size:0;gap:0}
 }
 
-.back-to-top{position:fixed;right:24px;bottom:88px;z-index:90;width:48px;height:48px;display:flex;align-items:center;justify-content:center;border:1px solid #78695726;border-radius:50%;background:#faf6ed;box-shadow:0 4px 18px #270b0a14;opacity:0;visibility:hidden;translate:0 10px;pointer-events:none;transition:opacity .25s,translate .25s,visibility .25s,background .2s}
+.back-to-top{position:fixed;right:24px;bottom:88px;z-index:90;width:48px;height:48px;display:flex;align-items:center;justify-content:center;border:1px solid #78695726;border-radius:16px;background:#faf6ed;box-shadow:0 4px 18px #270b0a14;opacity:0;visibility:hidden;translate:0 10px;pointer-events:none;transition:opacity .25s,translate .25s,visibility .25s,background .2s}
 .back-to-top img{rotate:90deg}
 .back-to-top.is-visible{opacity:1;visibility:visible;translate:0 0;pointer-events:auto}
 .back-to-top:hover{background:#eadbc8}
@@ -569,3 +569,5 @@ body{padding-top:var(--header-height)}
 html.design-v2,html.design-v2 body{overflow:hidden}
 html.design-v2 .dev-variant-group{display:none}
 html.design-v2 body>header,html.design-v2 body>main,html.design-v2 body>footer,html.design-v2 body>.back-to-top,html.design-v2 body>.skip{visibility:hidden}
+
+button, [role="button"], .header-back, .section [data-name="base / Button"]{border-radius:16px}

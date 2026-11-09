@@ -15,7 +15,7 @@
 .pv2 *{box-sizing:border-box}
 .pv2 p{margin:0 0 1em}
 .pv2 h2,.pv2 h3{margin:0;font-weight:400}
-.pv2 button{background:none;border:0;padding:0;cursor:pointer;color:inherit;font:inherit}
+.pv2 button{background:none;border:0;border-radius:16px;padding:0;cursor:pointer;color:inherit;font:inherit}
 .pv2 a{color:inherit}
 .pv2-defs{position:absolute;width:0;height:0;overflow:hidden}
 .pv2 .wrap{max-width:1436px;margin:0 auto;padding:120px 80px}
@@ -29,7 +29,7 @@
 .pv2 .panels h3{font:400 40px/1.1 'Nexa Script',cursive;letter-spacing:-1px}
 
 /* Звук */
-.pv2 .sound{display:inline-flex;align-items:center;gap:10px;height:44px;padding:0 18px;border-radius:8px;background:var(--pv-card);color:var(--pv-ink);font:400 15px/1 Ubuntu,Arial,sans-serif;transition:background .2s}
+.pv2 .sound{display:inline-flex;align-items:center;gap:10px;height:44px;padding:0 18px;border-radius:16px;background:var(--pv-card);color:var(--pv-ink);font:400 15px/1 Ubuntu,Arial,sans-serif;transition:background .2s}
 .pv2 .sound:hover{background:#dfcbb2}
 .pv2 .sound[aria-pressed=true]{background:var(--pv-green);color:var(--pv-paper)}
 .pv2 .eq{display:inline-flex;gap:2px;align-items:flex-end;height:14px}
