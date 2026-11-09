@@ -204,3 +204,24 @@ document.addEventListener('click',e=>{const a=e.target.closest('.card .order');i
   build();mq.addEventListener('change',build);
  });
 })();
+
+/* ===== часы созревания: циферблат на 12 часов, стрелка делает круг и ещё часть ===== */
+(function(){const dial=$('.dial');if(!dial)return;
+ const ticks=$('.dial-ticks',dial),ns='http://www.w3.org/2000/svg';
+ for(let i=0;i<60;i++){const a=i/60*Math.PI*2,maj=i%5===0,r1=maj?95:99,r2=106,l=document.createElementNS(ns,'line');
+  l.setAttribute('x1',120+Math.sin(a)*r1);l.setAttribute('y1',120-Math.cos(a)*r1);l.setAttribute('x2',120+Math.sin(a)*r2);l.setAttribute('y2',120-Math.cos(a)*r2);
+  l.setAttribute('class',maj?'major':'minor');ticks.append(l)}
+ const hand=$('.dial-hand',dial),arc1=$('.dial-arc1',dial),arc2=$('.dial-arc2',dial),btns=$$('.seg button'),eg=$('.dial-eg');
+ let cur=0,anim=0,user=false;
+ const draw=v=>{hand.style.transform=`rotate(${v/12*360}deg)`;arc1.style.strokeDashoffset=(100-Math.min(v,12)/12*100).toFixed(2);arc2.style.strokeDashoffset=(100-Math.max(0,v-12)/12*100).toFixed(2)};
+ const go=(to,ms)=>new Promise(res=>{cancelAnimationFrame(anim);
+  btns.forEach(b=>{const on=+b.dataset.h===to;b.setAttribute('aria-pressed',String(on));if(on)eg.innerHTML=b.dataset.eg});
+  if(reduceMotion.matches){cur=to;draw(to);return res()}
+  const from=cur,t0=performance.now();
+  const f=now=>{const k=Math.min(1,(now-t0)/ms),e=k<.5?4*k*k*k:1-Math.pow(-2*k+2,3)/2;cur=from+(to-from)*e;draw(cur);if(k<1)anim=requestAnimationFrame(f);else res()};
+  anim=requestAnimationFrame(f)});
+ draw(0);
+ btns.forEach(b=>b.addEventListener('click',()=>{user=true;go(+b.dataset.h,2200);track('ripen',{h:+b.dataset.h})}));
+ const demo=async()=>{for(const h of [16,18,24]){if(user)return;await go(h,h===16?4200:2600);await new Promise(r=>setTimeout(r,2200))}};
+ if('IntersectionObserver' in window){const io=new IntersectionObserver(es=>{if(es[0].isIntersecting){io.disconnect();demo()}},{threshold:.45});io.observe(dial)}else go(24,1);
+})();

@@ -13,7 +13,7 @@
   };
   // Звук хлеба для каждой секции (селектор → дорожки по очереди).
   const SECTIONS=[
-    ['.hero','crust'],['#crust','crust'],['.film','dough'],['#look','crust'],
+    ['.hero','crust'],['#crust','crust'],['#ripen','dough'],['.film','dough'],['#look','crust'],
     ['#bread','crust'],['#classic','crust'],['#preorder','dough'],['.band','crust'],
     ['#slice','crust'],['#bakery','starter bubbles'],['.sleep','dough'],
     ['#format','crust'],['#artisan','starter bubbles'],['#store','crust'],['.final','crust']
