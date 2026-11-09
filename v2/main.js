@@ -62,7 +62,7 @@ $('#appBtn').href=CONFIG.appUrl?CONFIG.appUrl:withUtm(CONFIG.catalogUrl,'app');
  addEventListener('scroll',()=>{if(!tick){tick=true;requestAnimationFrame(upd)}},{passive:true});addEventListener('resize',upd,{passive:true});upd()})();
 
 /* ===== появление блоков ===== */
-(function(){const els=$$('.reveal');requestAnimationFrame(()=>$('#heroMedia').classList.add('in'));
+(function(){const els=$$('.reveal');
  if(!('IntersectionObserver' in window)||reduceMotion.matches){els.forEach(e=>e.classList.add('in'));return}
  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px'});
  els.forEach((e,i)=>{e.style.transitionDelay=(i%3)*80+'ms';io.observe(e)})})();
