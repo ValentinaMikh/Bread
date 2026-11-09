@@ -207,6 +207,8 @@
 .process-nav{position:relative;width:33px;height:200px;display:grid;grid-template-rows:repeat(3,1fr);align-self:center}
 .process-markers{position:absolute;inset:0;width:33px;height:200px;pointer-events:none}
 .process-step-button{background:transparent;border:0;padding:0;position:relative;width:44px;left:-6px;min-height:44px}
+.process-step-button{cursor:pointer;border-radius:8px;transition:background .2s}
+.process-step-button:hover{background:#faf6ed66}
 .process-step-button:focus-visible{outline:2px solid #485933;border-radius:8px}
 @media(min-width:1621px){.process-story{width:100%}}
 @media(max-width:1023px){
